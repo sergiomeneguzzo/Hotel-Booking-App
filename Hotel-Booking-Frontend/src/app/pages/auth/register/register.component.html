@@ -1,0 +1,61 @@
+<div class="registration-container d-flex justify-content-center align-items-center">
+  <mat-card class="registration-card">
+    <div class="row">
+      <div class="col-md-6 d-none d-md-block">
+        <img ngSrc="/assets/logoBooking.jpg" alt="Hotel Booking" class="registration-image" height="1024" width="1024" priority>
+      </div>
+      <div class="col-md-6">
+        <mat-card-content>
+          <h1>Registrati</h1>
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Nome</mat-label>
+                  <input matInput type="text" placeholder="Inserisci il tuo nome" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" placeholder="Email" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Password</mat-label>
+                  <input matInput type="password" placeholder="Password" required>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Cognome</mat-label>
+                  <input matInput type="text" placeholder="Inserisci il tuo cognome" required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Immagine</mat-label>
+                  <input type="text" placeholder="Link Foto Profilo">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label>Conferma Password</mat-label>
+                  <input matInput type="password" placeholder="Conferma password" required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <button mat-raised-button color="primary" class="full-width">Registrati</button>
+          </form>
+
+          <div class="continue-with mt-4">
+            <p>O continua con</p>
+            <button mat-icon-button><img ngSrc="/assets/google-logo.png" alt="Google" height="800" width="800"></button>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <p>Hai già un account? <a href="/login">Accedi qui</a></p>
+        </mat-card-footer>
+      </div>
+    </div>
+  </mat-card>
+</div>

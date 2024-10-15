@@ -1,0 +1,14 @@
+/* styles.scss */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+body {
+  background: linear-gradient(to top right, rgb(214, 206, 220), #9a0d79) 0 0 / cover no-repeat;
+  min-height: 100vh;
+  height: 100%;
+}

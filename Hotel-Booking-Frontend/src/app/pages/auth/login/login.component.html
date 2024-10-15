@@ -1,0 +1,36 @@
+<div class="login-container d-flex justify-content-center align-items-center">
+  <mat-card class="login-card">
+    <div class="row">
+      <div class="col-md-6 d-none d-md-block">
+        <img ngSrc="/assets/logoBooking.jpg" alt="Hotel Booking" class="login-image" height="1024" width="1024" priority>
+      </div>
+      <div class="col-md-6">
+        <mat-card-content>
+          <h1>Login</h1>
+          <form>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" placeholder="Email">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" placeholder="Enter your password">
+            </mat-form-field>
+
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            <button mat-raised-button color="primary" class="full-width">Log In</button>
+          </form>
+
+          <div class="continue-with mt-4">
+            <p>Or Continue With</p>
+            <button mat-icon-button><img ngSrc="/assets/google-logo.png" alt="Google" height="800" width="800"></button>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <p>Don't have an account? <a href="/register">Sign up here</a></p>
+        </mat-card-footer>
+      </div>
+    </div>
+  </mat-card>
+</div>
