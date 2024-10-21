@@ -13,12 +13,14 @@ import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
