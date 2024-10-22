@@ -4,13 +4,32 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
+  background: linear-gradient(to top right, rgb(246, 242, 242)) 0 0 / cover
+    no-repeat;
+  min-height: 100vh;
 }
 
+// Import Bootstrap
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-body {
-  background: linear-gradient(to top right, rgb(214, 206, 220), #e0ebeb) 0 0 /
-    cover no-repeat;
-  min-height: 100vh;
-  height: 100%;
+// Snackbar styles
+.snackbar-error {
+  --mdc-snackbar-container-color: #de1124 !important;
+  --mat-mdc-snack-bar-button-color: #ffffff !important;
+  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mat-snack-bar-button-color: #ffffff !important;
+}
+
+.snackbar-warning {
+  --mdc-snackbar-container-color: #ffcc00 !important;
+  --mat-mdc-snack-bar-button-color: #ffffff !important;
+  --mdc-snackbar-supporting-text-color: #000000 !important;
+  --mat-snack-bar-button-color: #000000 !important;
+}
+
+.snackbar-success {
+  --mdc-snackbar-container-color: #28a745 !important;
+  --mat-mdc-snack-bar-button-color: #ffffff !important;
+  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mat-snack-bar-button-color: #ffffff !important;
 }

@@ -1,31 +1,98 @@
 .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
 .login-card {
+  display: flex;
+  flex-direction: column;
   max-width: 900px;
   width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.login-image-container {
+  flex: 1;
+  display: none;
+}
+
+.login-form-container {
+  flex: 1;
   padding: 20px;
 }
 
 .login-image {
   width: 100%;
-  height: auto;
   border-radius: 8px;
 }
 
-.full-width {
-  width: 100%;
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-field {
   margin-bottom: 1rem;
 }
 
-.forgot-password {
-  text-align: right;
+.form-field label {
   display: block;
-  color: #ff9100;
+  font-size: 1rem;
+  margin-bottom: 5px;
 }
 
-.continue-with button {
-  margin-right: 10px;
+.form-field input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+}
+
+.login-button:hover {
+  background-color: #262828;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-footer a {
+  text-decoration: none;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .login-image-container {
+    display: block;
+  }
+
+  .login-form-container {
+    padding: 40px;
+  }
+}

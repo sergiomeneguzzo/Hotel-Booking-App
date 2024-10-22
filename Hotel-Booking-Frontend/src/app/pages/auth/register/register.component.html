@@ -1,61 +1,134 @@
-<div class="registration-container d-flex justify-content-center align-items-center">
-  <mat-card class="registration-card">
-    <div class="row">
-      <div class="col-md-6 d-none d-md-block">
-        <img ngSrc="/assets/unnamed.webp" alt="Hotel Booking" class="registration-image" height="1024" width="1024" priority>
+<div class="registration-container">
+  <div class="registration-card">
+    <div class="registration-row">
+      <div class="registration-image-container">
+        <img
+          src="assets/since 2024.png"
+          alt="Hotel Booking"
+          class="registration-image"
+        />
       </div>
-      <div class="col-md-6">
-        <mat-card-content>
-          <h1>Registrati</h1>
-          <form>
-            <div class="row">
-              <div class="col-md-6">
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Nome</mat-label>
-                  <input matInput type="text" placeholder="Inserisci il tuo nome" required>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Email</mat-label>
-                  <input matInput type="email" placeholder="Email" required>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Password</mat-label>
-                  <input matInput type="password" placeholder="Password" required>
-                </mat-form-field>
+      <div class="registration-form-container">
+        <h1>Create an Account!</h1>
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-field">
+                <label for="first-name">First Name</label>
+                <input
+                  type="text"
+                  id="first-name"
+                  placeholder="Enter your first name"
+                  formControlName="firstName"
+                />
+                @if (registerForm.get('firstName')?.hasError('required') &&
+                registerForm.get('firstName')?.touched ) {
+                <div class="error-message">First Name is required</div>
+                }
               </div>
 
-              <div class="col-md-6">
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Cognome</mat-label>
-                  <input matInput type="text" placeholder="Inserisci il tuo cognome" required>
-                </mat-form-field>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="username"
+                />
+                @if (registerForm.get('username')?.invalid &&
+                registerForm.get('username')?.touched ) {
+                <div class="error-message">Please enter a valid email.</div>
+                }
+              </div>
 
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Immagine</mat-label>
-                  <input type="text" placeholder="Link Foto Profilo">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="input-field">
-                  <mat-label>Conferma Password</mat-label>
-                  <input matInput type="password" placeholder="Conferma password" required>
-                </mat-form-field>
+              <div class="form-field">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  formControlName="password"
+                />
+                @if (registerForm.get('password')?.errors?.['weakPassword']) {
+                <div class="error-message">Password weak</div>
+                }
               </div>
             </div>
 
-            <button mat-raised-button color="primary" class="full-width">Registrati</button>
-          </form>
+            <div class="form-col">
+              <div class="form-field">
+                <label for="last-name">Last Name</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  placeholder="Enter your last name"
+                  formControlName="lastName"
+                />
+                @if (registerForm.get('lastName')?.invalid &&
+                registerForm.get('lastName')?.touched) {
+                <div class="error-message">Last Name is required</div>
+                }
+              </div>
 
-          <div class="continue-with mt-4">
-            <p>O continua con</p>
-            <button mat-icon-button><img ngSrc="/assets/google-logo.png" alt="Google" height="800" width="800"></button>
+              <div class="form-field">
+                <label for="image">Image</label>
+                <input
+                  type="text"
+                  id="image"
+                  placeholder="Profile Image URL"
+                  formControlName="picture"
+                />
+                @if ( registerForm.get('picture')?.hasError('required') &&
+                registerForm.get('picture')?.touched) {
+                <div class="error-message">Picture is required</div>
+
+                } @else if (registerForm.get('picture')?.errors?.['invalidUrl'])
+                {
+                <div class="error-message">Please enter a valid URL</div>
+                }
+              </div>
+
+              <div class="form-field">
+                <label for="confirm-password">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirm-password"
+                  placeholder="Confirm your password"
+                  formControlName="confirmPassword"
+                />
+                <div
+                  *ngIf="
+                    registerForm.get('confirmPassword')?.errors &&
+                    (registerForm.get('confirmPassword')?.touched ||
+                      registerForm.get('confirmPassword')?.dirty)
+                  "
+                  class="error-message"
+                >
+                  <div
+                    *ngIf="
+                      registerForm.get('confirmPassword')?.errors
+                        ?.['passwordMismatch']
+                    "
+                  >
+                    Passwords do not match
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </mat-card-content>
-        <mat-card-footer>
-          <p>Hai già un account? <a href="/login">Accedi qui</a></p>
-        </mat-card-footer>
+          <button
+            type="submit"
+            class="register-button"
+            [disabled]="registerForm.invalid"
+          >
+            Register
+          </button>
+        </form>
+
+        <div class="register-footer">
+          <p>Already have an account? <a href="/login">Log in here</a></p>
+        </div>
       </div>
     </div>
-  </mat-card>
+  </div>
 </div>

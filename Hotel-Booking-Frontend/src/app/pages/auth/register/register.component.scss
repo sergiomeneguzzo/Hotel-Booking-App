@@ -1,26 +1,114 @@
 .registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
 .registration-card {
+  display: flex;
+  flex-direction: column;
   max-width: 900px;
   width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registration-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.registration-image-container {
+  flex: 1;
+  display: none;
+}
+
+.registration-form-container {
+  flex: 1;
   padding: 20px;
 }
 
 .registration-image {
   width: 100%;
-  height: auto;
   border-radius: 8px;
 }
 
-.full-width {
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-col {
+  flex: 1;
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-field label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.form-field input {
   width: 100%;
-  margin-bottom: 1rem;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.continue-with button {
-  margin-right: 10px;
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
 }
 
+.register-button:hover {
+  background-color: #262828;
+}
 
+.register-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-footer a {
+  text-decoration: none;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  font-size: small;
+}
+
+@media (min-width: 768px) {
+  .registration-image-container {
+    display: block;
+  }
+
+  .registration-form-container {
+    padding: 40px;
+  }
+}

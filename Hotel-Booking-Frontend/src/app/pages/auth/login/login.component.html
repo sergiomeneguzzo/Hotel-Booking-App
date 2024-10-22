@@ -1,57 +1,57 @@
-\
-<div class="login-container d-flex justify-content-center align-items-center">
-  <mat-card class="login-card">
-    <div class="row">
-      <div class="col-md-6 d-none d-md-block">
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-row">
+      <div class="login-image-container">
         <img
-          ngSrc="/assets/unnamed.webp"
+          src="assets/since 2024.png"
           alt="Hotel Booking"
           class="login-image"
-          height="1024"
-          width="1024"
-          priority
         />
       </div>
-      <div class="col-md-6">
-        <mat-card-content>
-          <h1>Login</h1>
-          <form>
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" placeholder="Email" />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
-              <input
-                matInput
-                type="password"
-                placeholder="Enter your password"
-              />
-            </mat-form-field>
-
-            <a href="#" class="forgot-password">Forgot Password?</a>
-            <button mat-raised-button color="primary" class="full-width">
-              Log In
-            </button>
-          </form>
-
-          <div class="continue-with mt-4">
-            <p>Or Continue With</p>
-            <button mat-icon-button>
-              <img
-                ngSrc="/assets/google-logo.png"
-                alt="Google"
-                height="800"
-                width="800"
-              />
-            </button>
+      <div class="login-form-container">
+        <h1>Welcome Back!</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-field">
+            <label for="username">Email</label>
+            <input
+              type="email"
+              id="username"
+              formControlName="username"
+              placeholder="Email"
+            />
           </div>
-        </mat-card-content>
-        <mat-card-footer>
+
+          <div class="form-field password-field">
+            <label for="password">Password</label>
+            <input
+              [type]="hide ? 'password' : 'text'"
+              id="password"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+            <!-- <button
+              type="button"
+              class="toggle-password"
+              (click)="hide = !hide"
+              aria-label="Toggle password visibility"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button> -->
+          </div>
+
+          <button
+            type="submit"
+            class="login-button"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+        </form>
+
+        <div class="register-footer">
           <p>Don't have an account? <a href="/register">Sign up here</a></p>
-        </mat-card-footer>
+        </div>
       </div>
     </div>
-  </mat-card>
+  </div>
 </div>

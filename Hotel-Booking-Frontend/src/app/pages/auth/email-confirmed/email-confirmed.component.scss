@@ -1,0 +1,65 @@
+.card-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.custom-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-circle {
+  background-color: black;
+  border-radius: 50%;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.confirm-icon {
+  width: 40px;
+  height: 40px;
+  color: #0dea1b;
+}
+
+.confirm-title {
+  font-size: 1.75rem;
+  font-family: "Orbitron", sans-serif;
+  color: #222222;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.card-actions {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn-go-back {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-go-back:hover {
+  background-color: #262828;
+}

@@ -3,31 +3,30 @@ import jwt from 'jsonwebtoken';
 import path from 'path';
 
 export const sendConfirmationEmail = async (email: string, userId: string) => {
+  const port = process.env.SECRET_MAIL_KEY;
+  const token = jwt.sign({ userId }, port!, { expiresIn: '1h' });
 
-    const port = process.env.SECRET_MAIL_KEY;
-    const token = jwt.sign({ userId }, port!, { expiresIn: '1h' });
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'noreply.fifthpocket@gmail.com',
-            pass: 'rzsw uomn alwl nscm'
-        }
-    });
+  const mailOptions = {
+    from: 'noreply.fifthpocket@gmail.com',
+    to: email,
+    subject: 'Email Confirmation',
+    attachments: [
+      {
+        filename: 'LogoPW1.png',
+        path: 'since2024.png',
+        cid: 'logo',
+      },
+    ],
 
-    const mailOptions = {
-        from: 'noreply.fifthpocket@gmail.com',
-        to: email,
-        subject: 'Email Confirmation',
-        attachments: [
-            {
-                filename: 'LogoPW1.webp',
-                path: "logo.webp",
-                cid: 'logo'
-            }
-        ],
-
-        html: `<!DOCTYPE html>
+    html: `<!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
@@ -115,7 +114,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         tuo indirizzo email cliccando sul pulsante qui sotto.
       </p>
 
-      <a href="https://project-work-drab.vercel.app/email-confirmed?token=${token}" class="btn-confirm"
+      <a href="http://localhost:4200/email-confirmed?token=${token}" class="btn-confirm"
         >Completa Registrazione</a
       >
 
@@ -126,8 +125,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       </div>
     </div>
   </body>
-</html>`
-    };
+</html>`,
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
