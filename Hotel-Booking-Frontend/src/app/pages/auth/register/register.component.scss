@@ -99,6 +99,9 @@ h1 {
 }
 
 .error-message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: red;
   font-size: small;
 }
