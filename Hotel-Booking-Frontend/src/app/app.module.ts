@@ -31,6 +31,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CheckEmailComponent } from './pages/auth/check-email/check-email.component';
 import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-confirmed.component';
 import { NewAddComponent } from './pages/new-add/new-add.component';
+import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
+import { HotelCardComponent } from './components/hotel-card/hotel-card.component';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,8 @@ import { NewAddComponent } from './pages/new-add/new-add.component';
     CheckEmailComponent,
     EmailConfirmedComponent,
     NewAddComponent,
+    HotelListComponent,
+    HotelCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { NewAddComponent } from './pages/new-add/new-add.component';
     MatButtonModule,
     MatSnackBarModule,
     FormsModule,
+    MatSliderModule,
   ],
   providers: [
     provideAnimationsAsync(),

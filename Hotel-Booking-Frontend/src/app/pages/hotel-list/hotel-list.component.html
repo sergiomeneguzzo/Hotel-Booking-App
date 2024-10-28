@@ -1,0 +1,35 @@
+<div class="filters" [formGroup]="filterForm">
+  <div class="filter-input">
+    <input formControlName="searchQuery" placeholder="Search for hotels..." />
+  </div>
+  <div class="filter-input">
+    <input
+      type="number"
+      formControlName="maxGuests"
+      placeholder="Number of guests"
+    />
+  </div>
+
+  <div class="price-range" formGroupName="priceRange">
+    <label>Price per night:</label>
+    <mat-slider
+      min="0"
+      max="1000"
+      step="10"
+      thumbLabel
+      class="price-slider"
+      formControlName="sliderValue"
+      (change)="onPriceRangeChange($event)"
+    >
+      <input matSliderStartThumb formControlName="min" />
+      <input matSliderEndThumb formControlName="max" />
+    </mat-slider>
+  </div>
+</div>
+
+<div class="hotel-list">
+  <app-hotel-card
+    *ngFor="let hotel of filteredHotels"
+    [hotel]="hotel"
+  ></app-hotel-card>
+</div>

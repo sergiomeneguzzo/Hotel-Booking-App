@@ -13,4 +13,8 @@ export class HotelService {
   createHotel(hotelData: FormData): Observable<any> {
     return this.http.post(`${APIURL}/api/hotels`, hotelData);
   }
+
+  getHotels(): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(`${APIURL}/api/hotels`);
+  }
 }

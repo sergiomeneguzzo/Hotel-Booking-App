@@ -1,0 +1,12 @@
+<div class="hotel-card">
+  <img
+    [src]="getImageUrl(hotel.photos[0])"
+    alt="{{ hotel.name }}"
+    class="hotel-image"
+  />
+  <div class="hotel-info">
+    <h3>{{ hotel.name }}</h3>
+    <p class="location">{{ hotel.location }}</p>
+    <p class="price"><strong></strong> €{{ hotel.pricePerNight }}</p>
+  </div>
+</div>
