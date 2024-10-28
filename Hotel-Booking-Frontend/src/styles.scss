@@ -9,6 +9,65 @@ body {
   min-height: 100vh;
 }
 
+.app-footer {
+  background-color: black;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  font-family: "Poppins", sans-serif;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+
+    .footer-section {
+      flex: 1;
+
+      h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+        color: #b3b3b3;
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 0.5rem;
+
+        a {
+          color: #b3b3b3;
+          font-size: 1.2rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #474b50;
+
+    p {
+      font-size: 0.7rem;
+      color: #b3b3b3;
+      margin: 0;
+    }
+  }
+}
+
 // Import Bootstrap
 @import "../node_modules/bootstrap/scss/bootstrap";
 
