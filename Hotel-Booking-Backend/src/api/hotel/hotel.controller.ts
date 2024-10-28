@@ -25,6 +25,7 @@ export const createHotel = async (
   hotelDTO.maxGuests = Number(req.body.maxGuests);
   hotelDTO.amenities = JSON.parse(req.body.amenities);
   hotelDTO.photos = req.files?.map((file: any) => file.filename) || [];
+  hotelDTO.pricePerNight = Number(req.body.pricePerNight);
 
   const errors = await validate(hotelDTO);
   if (errors.length > 0) {

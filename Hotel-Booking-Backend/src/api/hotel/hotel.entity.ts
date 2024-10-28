@@ -6,4 +6,5 @@ export interface IHotel {
   maxGuests: number;
   amenities: string[];
   photos: string[];
+  pricePerNight: number;
 }

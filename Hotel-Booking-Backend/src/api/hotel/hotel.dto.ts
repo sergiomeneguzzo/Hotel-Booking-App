@@ -24,4 +24,8 @@ export class HotelDTO {
   @IsArray()
   @IsString({ each: true })
   photos!: string[];
+
+  @IsNumber()
+  @IsNotEmpty()
+  pricePerNight!: number;
 }

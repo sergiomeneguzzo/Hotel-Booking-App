@@ -1,4 +1,3 @@
-// hotel.model.ts
 import mongoose from 'mongoose';
 import { IHotel } from './hotel.entity';
 
@@ -10,6 +9,7 @@ const hotelSchema = new mongoose.Schema<IHotel>(
     maxGuests: { type: Number, required: true },
     amenities: { type: [String], required: true },
     photos: { type: [String], required: true },
+    pricePerNight: { type: Number, required: true },
   },
   {
     timestamps: true,

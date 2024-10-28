@@ -1,12 +1,12 @@
 <!-- Navigation Bar -->
 <nav class="navbar">
-  <div class="logo">
+  <div routerLink="/home" class="logo">
     <img src="assets/since 2024.png" alt="logo" />
   </div>
   <ul class="nav-links">
-    <li>Cabins & Cottages</li>
+    <li>Explore</li>
     <li>Entire Homes</li>
-    <li>Unique Stays</li>
+    <li routerLink="/new-add">New Listing</li>
   </ul>
   <button class="log-out-btn" (click)="onLogout()">Log Out</button>
 </nav>
