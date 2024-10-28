@@ -20,33 +20,27 @@ router.use(isAuthenticated);
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
   createBooking(req, res, next);
 });
-
 router.get('/user', (req: Request, res: Response, next: NextFunction) => {
   getBookingsByUser(req, res, next);
 });
-
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   getAllBookings(req, res, next);
 });
-
 router.get('/:bookingId', (req: Request, res: Response, next: NextFunction) => {
   getBookingById(req, res, next);
 });
-
 router.patch(
   '/:bookingId',
   (req: Request, res: Response, next: NextFunction) => {
     updateBooking(req, res, next);
   },
 );
-
 router.delete(
   '/:bookingId',
   (req: Request, res: Response, next: NextFunction) => {
     deleteBooking(req, res, next);
   },
 );
-
 router.patch(
   '/:bookingId/cancel',
   (req: Request, res: Response, next: NextFunction) => {

@@ -15,7 +15,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CheckEmailComponent } from './pages/auth/check-email/check-email.component';
 import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-confirmed.component';
+import { NewAddComponent } from './pages/new-add/new-add.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-conf
     CardsComponent,
     CheckEmailComponent,
     EmailConfirmedComponent,
+    NewAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-conf
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
+    FormsModule,
   ],
   providers: [
     provideAnimationsAsync(),

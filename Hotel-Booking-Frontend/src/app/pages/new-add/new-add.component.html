@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>Crea un Nuovo Annuncio</h2>
+  <form [formGroup]="hotelForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input id="name" formControlName="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrizione</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Località</label>
+      <input id="location" formControlName="location" required />
+    </div>
+
+    <div class="form-group">
+      <label for="maxGuests">Massimo Ospiti</label>
+      <input
+        type="number"
+        id="maxGuests"
+        formControlName="maxGuests"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="amenities">Servizi (separati da virgole)</label>
+      <input id="amenities" formControlName="amenities" required />
+    </div>
+
+    <div class="form-group file-upload">
+      <label for="photos" class="file-label">
+        <span class="material-icons">attach_file</span>
+        Carica Foto
+      </label>
+      <input type="file" id="photos" (change)="onFileChange($event)" multiple />
+      <span class="file-names">{{ fileNames }}</span>
+    </div>
+
+    <button type="submit" class="btn-submit">Aggiungi Hotel</button>
+  </form>
+</div>

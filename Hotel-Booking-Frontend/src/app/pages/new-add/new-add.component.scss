@@ -1,0 +1,92 @@
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+
+  h2 {
+    font-size: 2rem;
+    color: black;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #35a8e0;
+        outline: none;
+      }
+    }
+
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #474b50;
+    }
+  }
+
+  .file-upload {
+    display: flex;
+    align-items: center;
+
+    .file-label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+      font-size: 16px;
+      color: #002e5f;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .material-icons {
+      font-size: 24px;
+      margin-right: 4px;
+    }
+
+    .file-names {
+      font-size: 14px;
+      color: #6c757d;
+      margin-left: 8px;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { CheckEmailComponent } from './pages/auth/check-email/check-email.component';
 import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-confirmed.component';
 import { authGuard } from './guards/auth.guard';
+import { NewAddComponent } from './pages/new-add/new-add.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'check-email', component: CheckEmailComponent },
   { path: 'email-confirmed', component: EmailConfirmedComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'new-add', component: NewAddComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({
