@@ -22,18 +22,15 @@
       </div>
 
       <div class="form-group">
-        <label for="pricePerNight">Price Per Night</label>
-        <input
-          type="number"
-          id="pricePerNight"
-          formControlName="pricePerNight"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="amenities">Services (comma-separated)</label>
-        <input id="amenities" formControlName="amenities" required />
+        <label for="amenities">Services</label>
+        <mat-form-field appearance="outline">
+          <mat-label>Select Services</mat-label>
+          <mat-select formControlName="amenities" multiple required>
+            <mat-option *ngFor="let service of services" [value]="service._id">
+              {{ service.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="form-group">
@@ -42,6 +39,28 @@
           type="number"
           id="maxGuests"
           formControlName="maxGuests"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="hotelType">Host Type</label>
+        <mat-form-field appearance="outline">
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="hotelType" required>
+            <mat-option *ngFor="let type of hotelTypes" [value]="type._id">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <label for="pricePerNight">Price Per Night</label>
+        <input
+          type="number"
+          id="pricePerNight"
+          formControlName="pricePerNight"
           required
         />
       </div>

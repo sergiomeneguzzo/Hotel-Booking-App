@@ -1,13 +1,28 @@
 <div class="filters" [formGroup]="filterForm">
   <div class="filter-input">
+    <span class="material-icons icon">search</span>
     <input formControlName="searchQuery" placeholder="Search for hotels..." />
   </div>
+
   <div class="filter-input">
+    <span class="material-icons icon">person</span>
     <input
       type="number"
       formControlName="maxGuests"
       placeholder="Number of guests"
     />
+  </div>
+
+  <div class="filter-input">
+    <!-- <span class="material-icons icon">room_service</span> -->
+    <mat-form-field class="service-multiselect" appearance="outline">
+      <mat-label>Services</mat-label>
+      <mat-select formControlName="services" multiple>
+        <mat-option *ngFor="let service of services" [value]="service.name">
+          {{ service.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="price-range" formGroupName="priceRange">
@@ -20,10 +35,7 @@
       class="price-slider"
       formControlName="sliderValue"
       (change)="onPriceRangeChange($event)"
-    >
-      <input matSliderStartThumb formControlName="min" />
-      <input matSliderEndThumb formControlName="max" />
-    </mat-slider>
+    ></mat-slider>
   </div>
 </div>
 

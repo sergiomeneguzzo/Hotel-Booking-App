@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsNumber, Min, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  Min,
+  IsArray,
+  IsMongoId,
+} from 'class-validator';
 
 export class HotelDTO {
   @IsString()
@@ -18,7 +25,7 @@ export class HotelDTO {
   maxGuests!: number;
 
   @IsArray()
-  @IsString({ each: true })
+  @IsMongoId({ each: true })
   amenities!: string[];
 
   @IsArray()
@@ -28,4 +35,8 @@ export class HotelDTO {
   @IsNumber()
   @IsNotEmpty()
   pricePerNight!: number;
+
+  @IsMongoId()
+  @IsNotEmpty()
+  hotelTypeId!: string;
 }

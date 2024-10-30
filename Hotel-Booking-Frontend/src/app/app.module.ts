@@ -34,6 +34,9 @@ import { NewAddComponent } from './pages/new-add/new-add.component';
 import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
 import { HotelCardComponent } from './components/hotel-card/hotel-card.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import { MatSliderModule } from '@angular/material/slider';
     NewAddComponent,
     HotelListComponent,
     HotelCardComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatSnackBarModule,
     FormsModule,
     MatSliderModule,
+    MatOption,
+    MatSelectModule,
   ],
   providers: [
     provideAnimationsAsync(),

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Hotel } from '../../interfaces/hotel.entity';
 import { HotelService } from '../../services/hotel.service';
+import { Amenity } from '../../interfaces/amenities.entity';
 
 @Component({
   selector: 'app-hotel-list',
@@ -12,6 +13,7 @@ import { HotelService } from '../../services/hotel.service';
 })
 export class HotelListComponent implements OnInit {
   hotels: Hotel[] = [];
+  services: Amenity[] = [];
   filteredHotels: Hotel[] = [];
   filterForm: FormGroup;
 
@@ -23,6 +25,7 @@ export class HotelListComponent implements OnInit {
     this.filterForm = this.fb.group({
       searchQuery: [''],
       maxGuests: [null],
+      services: [[]],
       priceRange: this.fb.group({
         min: [0],
         max: [1000],
@@ -36,9 +39,12 @@ export class HotelListComponent implements OnInit {
       this.filteredHotels = hotels;
     });
 
+    this.HotelSrv.getAmenities().subscribe((services) => {
+      this.services = services;
+    });
+
     this.filterForm.valueChanges.subscribe(() => this.filterHotels());
   }
-
   onPriceRangeChange(event: any) {
     const priceRange = this.filterForm.get('priceRange');
     if (priceRange) {
@@ -51,7 +57,8 @@ export class HotelListComponent implements OnInit {
   }
 
   filterHotels() {
-    const { searchQuery, maxGuests, priceRange } = this.filterForm.value;
+    const { searchQuery, maxGuests, services, priceRange } =
+      this.filterForm.value;
     this.filteredHotels = this.hotels.filter((hotel) => {
       const matchesSearch = hotel.name
         .toLowerCase()
@@ -60,7 +67,19 @@ export class HotelListComponent implements OnInit {
       const matchesPrice =
         hotel.pricePerNight >= priceRange.min &&
         hotel.pricePerNight <= priceRange.max;
-      return matchesSearch && matchesGuests && matchesPrice;
+
+      const matchesServices =
+        services.length > 0
+          ? services.every((selectedService: string) =>
+              hotel.amenities.some((amenity: string | Amenity) =>
+                typeof amenity === 'string'
+                  ? amenity === selectedService
+                  : amenity.name === selectedService
+              )
+            )
+          : true;
+
+      return matchesSearch && matchesGuests && matchesPrice && matchesServices;
     });
   }
 }

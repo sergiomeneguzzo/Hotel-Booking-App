@@ -24,7 +24,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
   getHotelById(req, res, next);
 });
-router.put('/:id', (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:id', (req: Request, res: Response, next: NextFunction) => {
   updateHotel(req, res, next);
 });
 router.delete('/:id', (req: Request, res: Response, next: NextFunction) => {

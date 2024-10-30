@@ -9,18 +9,22 @@ export default class HotelService {
   }
 
   public static async getAllHotels(): Promise<IHotel[]> {
-    return await Hotel.find();
+    return await Hotel.find().populate('hotelTypeId').populate('amenities');
   }
 
   public static async getHotelById(id: string): Promise<IHotel | null> {
-    return await Hotel.findById(id);
+    return await Hotel.findById(id)
+      .populate('hotelTypeId')
+      .populate('amenities');
   }
 
   public static async updateHotel(
     id: string,
     hotelData: Partial<HotelDTO>,
   ): Promise<IHotel | null> {
-    return await Hotel.findByIdAndUpdate(id, hotelData, { new: true });
+    return await Hotel.findByIdAndUpdate(id, hotelData, { new: true })
+      .populate('hotelTypeId')
+      .populate('amenities');
   }
 
   public static async deleteHotel(id: string): Promise<IHotel | null> {

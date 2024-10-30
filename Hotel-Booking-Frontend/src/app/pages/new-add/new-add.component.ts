@@ -5,6 +5,8 @@ import { HotelService } from '../../services/hotel.service';
 import { NotificationService } from '../../services/notification.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Amenity } from '../../interfaces/amenities.entity';
+import { HotelType } from '../../interfaces/hotel-type.entity';
 
 @Component({
   selector: 'app-new-add',
@@ -15,6 +17,8 @@ export class NewAddComponent {
   hotelForm!: FormGroup;
   selectedFiles: File[] = [];
   fileNames: string = '';
+  services: Amenity[] = [];
+  hotelTypes: HotelType[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,9 +33,19 @@ export class NewAddComponent {
       description: ['', Validators.required],
       location: ['', Validators.required],
       maxGuests: [null, [Validators.required, Validators.min(1)]],
-      amenities: ['', Validators.required],
+      amenities: [[], Validators.required],
+      hotelType: [null, Validators.required],
       photos: [null],
       pricePerNight: [null, [Validators.required, Validators.min(0)]],
+    });
+
+    this.hotelService.getAmenities().subscribe((data: Amenity[]) => {
+      this.services = data;
+    });
+
+    this.hotelService.getHotelTypes().subscribe((data: HotelType[]) => {
+      this.hotelTypes = data;
+      console.log('Hotel Types:', this.hotelTypes);
     });
   }
 
@@ -47,15 +61,14 @@ export class NewAddComponent {
   }
 
   async onSubmit() {
-    const amenitiesArray = this.hotelForm.value.amenities
-      .split(',')
-      .map((amenity: string) => amenity.trim());
+    const amenitiesArray = this.hotelForm.value.amenities;
 
     const formData = new FormData();
     formData.append('name', this.hotelForm.value.name);
     formData.append('description', this.hotelForm.value.description);
     formData.append('location', this.hotelForm.value.location);
     formData.append('maxGuests', this.hotelForm.value.maxGuests);
+    formData.append('hotelType', this.hotelForm.value.hotelType);
     formData.append('amenities', JSON.stringify(amenitiesArray));
     formData.append(
       'pricePerNight',

@@ -2,7 +2,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-text">
-      <h1>Hi Sergio, Book your stay!</h1>
+      <h1>Hi {{ user?.firstName }}, Book your stay!</h1>
       <p>
         Create memorable travel moments by choosing a designer house with a warm
         ambiance as your accommodation.
@@ -18,7 +18,7 @@
     <!-- Featured Property -->
     <div class="featured-property">
       <h2>Exceptional Properties Located in Stunning Surroundings</h2>
-      <button class="cta-btn">Book Now →</button>
+      <button class="cta-btn" routerLink="/hotels">Book Now →</button>
     </div>
   </section>
 

@@ -7,9 +7,16 @@ const hotelSchema = new mongoose.Schema<IHotel>(
     description: { type: String, required: true },
     location: { type: String, required: true },
     maxGuests: { type: Number, required: true },
-    amenities: { type: [String], required: true },
+    amenities: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Amenity', required: true },
+    ],
     photos: { type: [String], required: true },
     pricePerNight: { type: Number, required: true },
+    hotelTypeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'HotelType',
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -1,13 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../interfaces/user.entity';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
 })
-export class HomeComponent {
+export class ProfileComponent {
   user: User | null = null;
 
   constructor(private authService: AuthService) {}
