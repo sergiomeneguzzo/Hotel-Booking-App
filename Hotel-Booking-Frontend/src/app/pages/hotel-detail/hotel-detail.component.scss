@@ -64,29 +64,57 @@
 
     .date-range-picker {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       margin: 20px 0;
+
+      .date-fields {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
 
       .start-date,
       .end-date {
-        width: 48%; // Adjust width for a neat layout
+        flex: 1;
+        margin-right: 10px;
       }
-    }
-  }
 
-  .book-btn {
-    margin-top: 5px;
-    background-color: rgb(9, 133, 9);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+      .start-date:last-child,
+      .end-date:last-child {
+        margin-right: 0;
+      }
 
-    &:hover {
-      background-color: #133a04;
+      .guest-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+
+        .guest-field {
+          width: 100%;
+          max-width: 300px;
+          margin-bottom: 10px;
+        }
+
+        .book-btn {
+          width: 100%;
+          max-width: 300px;
+          margin-top: 10px;
+          background-color: rgb(9, 133, 9);
+          color: white;
+          padding: 0.8rem;
+          border: none;
+          border-radius: 25px;
+          cursor: pointer;
+          font-size: 1rem;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #133a04;
+          }
+        }
+      }
     }
   }
 }

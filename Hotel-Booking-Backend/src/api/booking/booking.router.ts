@@ -8,6 +8,7 @@ import {
   getBookingsByUser,
   getAllBookings,
   cancelBooking,
+  getUnavailableDates,
 } from './booking.controller';
 import { Request, Response, NextFunction } from 'express';
 
@@ -47,6 +48,13 @@ router.patch(
     cancelBooking(req, res, next)
       .then((result) => res.json(result))
       .catch(next);
+  },
+);
+
+router.get(
+  '/unavailable-dates/:hotelId',
+  (req: Request, res: Response, next: NextFunction) => {
+    getUnavailableDates(req, res, next);
   },
 );
 

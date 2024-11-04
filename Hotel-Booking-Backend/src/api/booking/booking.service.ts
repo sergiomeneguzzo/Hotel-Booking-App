@@ -47,4 +47,28 @@ export default class BookingService {
     const result = await Booking.findByIdAndDelete(bookingId).exec();
     return result !== null;
   }
+
+  public static async isRoomAvailable(
+    hotelId: string,
+    checkInDate: Date,
+    checkOutDate: Date,
+  ): Promise<boolean> {
+    const bookings = await Booking.find({
+      hotelId,
+      $or: [
+        { checkInDate: { $lt: checkOutDate, $gte: checkInDate } },
+        { checkOutDate: { $gt: checkInDate, $lte: checkOutDate } },
+        {
+          checkInDate: { $lte: checkInDate },
+          checkOutDate: { $gte: checkOutDate },
+        },
+      ],
+    }).exec();
+
+    return bookings.length === 0;
+  }
+
+  public static async getBookingsByHotel(hotelId: string): Promise<IBooking[]> {
+    return await Booking.find({ hotelId }).exec();
+  }
 }

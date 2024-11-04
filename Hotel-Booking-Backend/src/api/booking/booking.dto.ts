@@ -17,10 +17,6 @@ export class BookingDTO {
   @IsNotEmpty()
   hotelId!: string;
 
-  @IsString()
-  @IsNotEmpty()
-  roomType!: string;
-
   @IsDate()
   @IsNotEmpty()
   checkInDate!: Date;

@@ -10,22 +10,32 @@ export const createBooking = async (
   res: Response,
   next: NextFunction,
 ): Promise<Response> => {
-  const { hotelId, roomType, checkInDate, checkOutDate, guests } = req.body;
+  const { hotelId, checkInDate, checkOutDate, guests } = req.body;
   const userId = req.user?.id;
 
-  if (!hotelId || !roomType || !checkInDate || !checkOutDate || !guests) {
+  if (!hotelId || !checkInDate || !checkOutDate || !guests) {
     logService.add('Booking Creation Error', false);
     return res.status(400).json({ message: 'Dati mancanti o incompleti.' });
+  }
+
+  const isAvailable = await BookingService.isRoomAvailable(
+    hotelId,
+    new Date(checkInDate),
+    new Date(checkOutDate),
+  );
+  if (!isAvailable) {
+    return res.status(400).json({
+      message: 'La stanza non è disponibile per le date selezionate.',
+    });
   }
 
   const bookingDTO = new BookingDTO();
   bookingDTO.userId = userId!;
   bookingDTO.hotelId = hotelId;
-  bookingDTO.roomType = roomType;
   bookingDTO.checkInDate = new Date(checkInDate);
   bookingDTO.checkOutDate = new Date(checkOutDate);
   bookingDTO.guests = guests;
-  bookingDTO.status = 'pending';
+  bookingDTO.status = 'confirmed';
 
   const errors = await validate(bookingDTO);
   if (errors.length > 0) {
@@ -198,6 +208,30 @@ export const cancelBooking = async (
     return res.status(500).json({
       message: `Errore del server: ${
         error instanceof Error ? error.message : 'Errore sconosciuto'
+      }`,
+    });
+  }
+};
+
+export const getUnavailableDates = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<Response> => {
+  const { hotelId } = req.params;
+
+  try {
+    const bookings = await BookingService.getBookingsByHotel(hotelId);
+    const unavailableDates = bookings.map((booking) => ({
+      start: booking.checkInDate,
+      end: booking.checkOutDate,
+    }));
+    return res.status(200).json(unavailableDates);
+  } catch (error) {
+    logService.add('Unavailable Dates Retrieval Error', false);
+    return res.status(500).json({
+      message: `Server error: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     });
   }

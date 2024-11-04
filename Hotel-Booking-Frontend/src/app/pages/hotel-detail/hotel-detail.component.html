@@ -24,40 +24,59 @@
       }
     </div>
 
-    <div class="date-range-picker">
-      <mat-form-field class="start-date" appearance="fill">
-        <mat-label>Check-in Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerStart"
-          [(ngModel)]="startDate"
-          [min]="today"
-          (dateChange)="onStartDateChange()"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="pickerStart"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #pickerStart></mat-datepicker>
-      </mat-form-field>
+    <form [formGroup]="bookingForm" class="date-range-picker">
+      <div class="date-fields">
+        <mat-form-field class="start-date" appearance="fill">
+          <mat-label>Check-in Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerStart"
+            formControlName="startDate"
+            [min]="today"
+            (dateChange)="onStartDateChange()"
+            [disabled]="isDatepickerDisabled"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerStart"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field class="end-date" appearance="fill">
-        <mat-label>Check-out Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerEnd"
-          [(ngModel)]="endDate"
-          [min]="startDate"
-          (dateChange)="checkAvailability()"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="pickerEnd"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #pickerEnd></mat-datepicker>
-      </mat-form-field>
-    </div>
+        <mat-form-field class="end-date" appearance="fill">
+          <mat-label>Check-out Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerEnd"
+            formControlName="endDate"
+            [min]="bookingForm.get('startDate')?.value"
+            (dateChange)="checkAvailability()"
+            [disabled]="isDatepickerDisabled"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pickerEnd"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="guest-container">
+        <mat-form-field appearance="fill" class="guest-field">
+          <mat-label>Number of Guests</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="numberOfGuests"
+            [max]="hotel.maxGuests"
+            [min]="1"
+          />
+          <mat-hint>Maximum: {{ hotel.maxGuests }}</mat-hint>
+        </mat-form-field>
+
+        <button class="book-btn" (click)="bookHotel()">Book</button>
+      </div>
+    </form>
   </div>
-  <button class="book-btn" (click)="bookHotel()">Book</button>
 </div>
 }
