@@ -9,11 +9,12 @@ import { authGuard } from './guards/auth.guard';
 import { NewAddComponent } from './pages/new-add/new-add.component';
 import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { guestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [guestGuard] },
   { path: 'check-email', component: CheckEmailComponent },
   { path: 'email-confirmed', component: EmailConfirmedComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
