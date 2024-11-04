@@ -20,6 +20,10 @@ export class HotelService {
     return this.http.get<Hotel[]>(`${APIURL}/api/hotels`);
   }
 
+  getHotelById(id: string): Observable<Hotel> {
+    return this.http.get<Hotel>(`${APIURL}/api/hotels/${id}`);
+  }
+
   getAmenities(): Observable<Amenity[]> {
     return this.http.get<Amenity[]>(`${APIURL}/api/amenities`);
   }

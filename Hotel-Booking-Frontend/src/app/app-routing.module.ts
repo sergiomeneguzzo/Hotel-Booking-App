@@ -10,6 +10,7 @@ import { NewAddComponent } from './pages/new-add/new-add.component';
 import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { guestGuard } from './guards/guest.guard';
+import { HotelDetailComponent } from './pages/hotel-detail/hotel-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,11 @@ const routes: Routes = [
   { path: 'new-add', component: NewAddComponent, canActivate: [authGuard] },
   { path: 'hotels', component: HotelListComponent, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  {
+    path: 'hotels/:id',
+    component: HotelDetailComponent,
+    canActivate: [authGuard],
+  },
 ];
 
 @NgModule({

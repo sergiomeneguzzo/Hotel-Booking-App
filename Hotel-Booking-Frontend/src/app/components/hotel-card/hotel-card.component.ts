@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hotel } from '../../interfaces/hotel.entity';
 
 @Component({
@@ -10,6 +11,7 @@ export class HotelCardComponent {
   baseUrl: string = 'http://localhost:3000/uploads';
 
   @Input() hotel!: Hotel;
+  constructor(private router: Router) {}
 
   getImageUrl(imageName: string): string {
     return `${this.baseUrl}/${imageName}`;

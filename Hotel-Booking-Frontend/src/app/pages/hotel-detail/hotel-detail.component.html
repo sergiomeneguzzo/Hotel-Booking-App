@@ -1,0 +1,63 @@
+@if (hotel) {
+<div class="hotel-detail-container">
+  <div class="photo-gallery">
+    @for (photo of hotel.photos; track $index) {
+    <ng-container>
+      <img
+        [src]="getImageUrl(photo)"
+        alt="{{ hotel.name }}"
+        class="gallery-photo"
+      />
+    </ng-container>
+    }
+  </div>
+
+  <div class="hotel-info">
+    <h1>{{ hotel.name }}</h1>
+    <p class="hotel-description">{{ hotel.description }}</p>
+
+    <div class="hotel-amenities">
+      @for (amenity of hotel.amenities; track $index) {
+      <span class="amenity-chip">
+        {{ isAmenity(amenity) ? amenity.name : amenity }}
+      </span>
+      }
+    </div>
+
+    <div class="date-range-picker">
+      <mat-form-field class="start-date" appearance="fill">
+        <mat-label>Check-in Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerStart"
+          [(ngModel)]="startDate"
+          [min]="today"
+          (dateChange)="onStartDateChange()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerStart"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="end-date" appearance="fill">
+        <mat-label>Check-out Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerEnd"
+          [(ngModel)]="endDate"
+          [min]="startDate"
+          (dateChange)="checkAvailability()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerEnd"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <button class="book-btn" (click)="bookHotel()">Book</button>
+</div>
+}

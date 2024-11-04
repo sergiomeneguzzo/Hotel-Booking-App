@@ -1,4 +1,5 @@
 export interface Booking {
+  _id?: string;
   userId: string;
   hotelId: string;
   roomType: string;

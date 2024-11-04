@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Hotel } from '../../interfaces/hotel.entity';
 import { HotelService } from '../../services/hotel.service';
 import { Amenity } from '../../interfaces/amenities.entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hotel-list',
@@ -20,7 +21,8 @@ export class HotelListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private HotelSrv: HotelService
+    private HotelSrv: HotelService,
+    private router: Router
   ) {
     this.filterForm = this.fb.group({
       searchQuery: [''],
@@ -81,5 +83,9 @@ export class HotelListComponent implements OnInit {
 
       return matchesSearch && matchesGuests && matchesPrice && matchesServices;
     });
+  }
+
+  goToHotelDetail(id: string) {
+    this.router.navigate(['/hotels', id]);
   }
 }

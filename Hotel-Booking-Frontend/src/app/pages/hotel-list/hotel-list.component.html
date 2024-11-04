@@ -18,9 +18,11 @@
     <mat-form-field class="service-multiselect" appearance="outline">
       <mat-label>Services</mat-label>
       <mat-select formControlName="services" multiple>
-        <mat-option *ngFor="let service of services" [value]="service.name">
+        @for (service of services; track $index) {
+        <mat-option [value]="service.name">
           {{ service.name }}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>
@@ -43,5 +45,6 @@
   <app-hotel-card
     *ngFor="let hotel of filteredHotels"
     [hotel]="hotel"
+    (click)="goToHotelDetail(hotel._id!)"
   ></app-hotel-card>
 </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +11,7 @@ import {
   MatCardFooter,
   MatCardModule,
 } from '@angular/material/card';
-import { NgOptimizedImage } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -35,9 +35,18 @@ import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
 import { HotelCardComponent } from './components/hotel-card/hotel-card.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { MatOption } from '@angular/material/core';
+import {
+  DateAdapter,
+  MatNativeDateModule,
+  MatOption,
+} from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { HotelDetailComponent } from './pages/hotel-detail/hotel-detail.component';
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
 
+registerLocaleData(localeIt);
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +61,7 @@ import { MatSelectModule } from '@angular/material/select';
     HotelListComponent,
     HotelCardComponent,
     ProfileComponent,
+    HotelDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,10 +87,13 @@ import { MatSelectModule } from '@angular/material/select';
     MatSliderModule,
     MatOption,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    [{ provide: LOCALE_ID, useValue: 'it' }, DatePipe],
   ],
   bootstrap: [AppComponent],
 })
