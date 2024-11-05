@@ -1,55 +1,72 @@
 <div class="login-container">
   <div class="login-card">
-    <div class="login-row">
-      <div class="login-image-container">
-        <img
-          src="assets/since 2024.png"
-          alt="Hotel Booking"
-          class="login-image"
-        />
-      </div>
-      <div class="login-form-container">
-        <h1>Welcome Back!</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="form-field">
-            <label for="username">Email</label>
-            <input
-              type="email"
-              id="username"
-              formControlName="username"
-              placeholder="Email"
-            />
+    <div class="login-content">
+      <!-- Left Side - Form -->
+      <div class="form-section">
+        <div class="language-selector">
+          <mat-icon>language</mat-icon>
+          <span>English (US)</span>
+        </div>
+
+        <div class="form-header">
+          <span class="register-label">START YOUR JOURNEY</span>
+          <h1>Sign In</h1>
+          <p class="sign-in-text">
+            Don't have an account? <a href="/register">Sign Up</a>
+          </p>
+        </div>
+
+        <form class="signup-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="username">E-Mail</label>
+            <div class="input-container">
+              <input
+                type="email"
+                id="username"
+                formControlName="username"
+                placeholder="Email"
+              />
+              <mat-icon class="input-icon">mail_outline</mat-icon>
+            </div>
           </div>
 
-          <div class="form-field password-field">
+          <div class="form-group">
             <label for="password">Password</label>
-            <input
-              [type]="hide ? 'password' : 'text'"
-              id="password"
-              formControlName="password"
-              placeholder="Enter your password"
-            />
-            <!-- <button
-              type="button"
-              class="toggle-password"
-              (click)="hide = !hide"
-              aria-label="Toggle password visibility"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button> -->
+            <div class="input-container">
+              <input
+                [type]="hide ? 'password' : 'text'"
+                id="password"
+                formControlName="password"
+                placeholder="Enter your password"
+              />
+              <button type="button" class="input-icon" (click)="hide = !hide">
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            class="login-button"
-            [disabled]="loginForm.invalid"
-          >
-            Login
-          </button>
-        </form>
+          <button type="submit" class="signup-button">LOGIN</button>
 
-        <div class="register-footer">
-          <p>Don't have an account? <a href="/register">Sign up here</a></p>
+          <p class="privacy-notice">
+            By clicking the Sign in Button, you agree to the Privacy Policy.
+            <br />
+            For more information, read about our privacy <a href="#">here</a>.
+          </p>
+        </form>
+      </div>
+
+      <!-- Right Side - Illustration -->
+      <div class="illustration-section">
+        <div class="logo">
+          <img src="assets/logo.png" alt="Ocula Logo" />
+        </div>
+        <div class="illustration">
+          <img
+            src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-kihavah-maldives-villas/accommodation/details-page/sunset-over-water-pool-villa/new_aug_2023/teaser_image_gallery_880x600/3a_anantara_kihavah_sunset_over_water_pool_villa_aerial_880x600px.jpg"
+            alt="Login Illustration"
+          />
         </div>
       </div>
     </div>

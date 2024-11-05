@@ -15,11 +15,11 @@ import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { CardsComponent } from './components/cards/cards.component';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
@@ -54,7 +54,6 @@ registerLocaleData(localeIt);
     RegisterComponent,
     HomeComponent,
     NavBarComponent,
-    CardsComponent,
     CheckEmailComponent,
     EmailConfirmedComponent,
     NewAddComponent,
@@ -74,7 +73,6 @@ registerLocaleData(localeIt);
     MatInput,
     MatIconButton,
     MatButton,
-    MatIconButton,
     MatCardFooter,
     MatFormFieldModule,
     MatInputModule,
@@ -89,6 +87,7 @@ registerLocaleData(localeIt);
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatIconModule,
   ],
   providers: [
     provideAnimationsAsync(),

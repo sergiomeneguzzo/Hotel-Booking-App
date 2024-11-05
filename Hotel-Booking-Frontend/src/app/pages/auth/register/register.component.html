@@ -1,34 +1,67 @@
 <div class="registration-container">
   <div class="registration-card">
-    <div class="registration-row">
-      <div class="registration-image-container">
-        <img
-          src="assets/since 2024.png"
-          alt="Hotel Booking"
-          class="registration-image"
-        />
+    <div class="login-content">
+      <!-- Left Side - Illustration -->
+      <div class="illustration-section">
+        <div class="logo">
+          <img src="assets/logo.png" alt="Hotel Booking Logo" />
+        </div>
+        <div class="illustration">
+          <img
+            src="https://assets.anantara.com/image/upload/q_auto,f_auto,c_limit,w_1045/media/minor/anantara/images/anantara-kihavah-maldives-villas/accommodation/details-page/sunset-over-water-pool-villa/new_aug_2023/teaser_image_gallery_880x600/3a_anantara_kihavah_sunset_over_water_pool_villa_aerial_880x600px.jpg"
+            alt="Registration Illustration"
+          />
+        </div>
       </div>
-      <div class="registration-form-container">
-        <h1>Create an Account!</h1>
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-          <div class="form-row">
-            <div class="form-col">
-              <div class="form-field">
+
+      <!-- Right Side - Form -->
+      <div class="form-section">
+        <div class="form-header">
+          <span class="register-label">CREATE AN ACCOUNT</span>
+          <h1>Create an Account</h1>
+          <p class="sign-in-text">
+            Already have an account? <a href="/login">Sign In</a>
+          </p>
+        </div>
+
+        <form
+          class="signup-form"
+          [formGroup]="registerForm"
+          (ngSubmit)="register()"
+        >
+          <div class="form-grid">
+            <!-- Left Column -->
+            <div class="form-column">
+              <div class="form-group">
                 <label for="first-name">First Name</label>
                 <input
                   type="text"
                   id="first-name"
-                  placeholder="Enter your first name"
+                  placeholder="First Name"
                   formControlName="firstName"
                 />
                 @if (registerForm.get('firstName')?.hasError('required') &&
-                registerForm.get('firstName')?.touched ) {
+                registerForm.get('firstName')?.touched) {
                 <div class="error-message">First Name is required</div>
                 }
               </div>
 
-              <div class="form-field">
-                <label for="email">Email</label>
+              <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                />
+                @if (registerForm.get('lastName')?.hasError('required') &&
+                registerForm.get('lastName')?.touched) {
+                <div class="error-message">Last Name is required</div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="email">E-Mail</label>
                 <input
                   type="email"
                   id="email"
@@ -36,12 +69,32 @@
                   formControlName="username"
                 />
                 @if (registerForm.get('username')?.invalid &&
-                registerForm.get('username')?.touched ) {
+                registerForm.get('username')?.touched) {
                 <div class="error-message">Please enter a valid email.</div>
                 }
               </div>
+            </div>
 
-              <div class="form-field">
+            <!-- Right Column -->
+            <div class="form-column">
+              <div class="form-group">
+                <label for="image">Image</label>
+                <input
+                  type="text"
+                  id="image"
+                  placeholder="Profile Image URL"
+                  formControlName="picture"
+                />
+                @if (registerForm.get('picture')?.hasError('required') &&
+                registerForm.get('picture')?.touched) {
+                <div class="error-message">Picture is required</div>
+                } @else if (registerForm.get('picture')?.errors?.['invalidUrl'])
+                {
+                <div class="error-message">Please enter a valid URL</div>
+                }
+              </div>
+
+              <div class="form-group">
                 <label for="password">Password</label>
                 <input
                   type="password"
@@ -50,50 +103,16 @@
                   formControlName="password"
                 />
                 @if (registerForm.get('password')?.errors?.['weakPassword']) {
-                <div class="error-message">Password weak</div>
-                }
-              </div>
-            </div>
-
-            <div class="form-col">
-              <div class="form-field">
-                <label for="last-name">Last Name</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  placeholder="Enter your last name"
-                  formControlName="lastName"
-                />
-                @if (registerForm.get('lastName')?.invalid &&
-                registerForm.get('lastName')?.touched) {
-                <div class="error-message">Last Name is required</div>
+                <div class="error-message">Password is too weak</div>
                 }
               </div>
 
-              <div class="form-field">
-                <label for="image">Image</label>
-                <input
-                  type="text"
-                  id="image"
-                  placeholder="Profile Image URL"
-                  formControlName="picture"
-                />
-                @if ( registerForm.get('picture')?.hasError('required') &&
-                registerForm.get('picture')?.touched) {
-                <div class="error-message">Picture is required</div>
-
-                } @else if (registerForm.get('picture')?.errors?.['invalidUrl'])
-                {
-                <div class="error-message">Please enter a valid URL</div>
-                }
-              </div>
-
-              <div class="form-field">
+              <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
                 <input
                   type="password"
                   id="confirm-password"
-                  placeholder="Confirm your password"
+                  placeholder="Confirm Password"
                   formControlName="confirmPassword"
                 />
                 <div
@@ -105,10 +124,7 @@
                   class="error-message"
                 >
                   <div
-                    *ngIf="
-                      registerForm.get('confirmPassword')?.errors
-                        ?.['passwordMismatch']
-                    "
+                    *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']"
                   >
                     Passwords do not match
                   </div>
@@ -116,18 +132,21 @@
               </div>
             </div>
           </div>
+
           <button
             type="submit"
-            class="register-button"
+            class="signup-button"
             [disabled]="registerForm.invalid"
           >
             Register
           </button>
-        </form>
 
-        <div class="register-footer">
-          <p>Already have an account? <a href="/login">Log in here</a></p>
-        </div>
+          <p class="privacy-notice">
+            By clicking the Register Button, you agree to our Privacy Policy.
+            <br />
+            Read more about our privacy <a href="#">here</a>.
+          </p>
+        </form>
       </div>
     </div>
   </div>
