@@ -28,17 +28,52 @@
     }
   }
 
+  .profile-menu {
+    position: relative;
+    cursor: pointer;
+
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 0.5rem;
+      z-index: 1000;
+
+      p {
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+
+        &:hover {
+          background-color: #f8f9fa;
+          border-radius: 10px;
+        }
+      }
+    }
+
+    .dropdown.active {
+      display: block;
+    }
+  }
+
   .log-out-btn {
-    background-color: black;
-    color: white;
     padding: 0.8rem 1.5rem;
-    border-radius: 25px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
     font-size: 1rem;
 
     &:hover {
-      background-color: red;
+      background-color: red !important;
     }
   }
 

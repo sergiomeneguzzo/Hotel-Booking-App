@@ -9,5 +9,11 @@
     <li>My Reservations</li>
     <li routerLink="/new-add">New Listing</li>
   </ul>
-  <button class="log-out-btn" (click)="onLogout()">Log Out</button>
+  <div class="profile-menu" (click)="toggleProfileMenu()">
+    <img [src]="user?.picture" alt="Profile" class="profile-pic" />
+    <div class="dropdown" [class.active]="profileMenuActive">
+      <p (click)="navigateToProfile()">Profile</p>
+      <p (click)="onLogout()" class="log-out-btn">Logout</p>
+    </div>
+  </div>
 </nav>
