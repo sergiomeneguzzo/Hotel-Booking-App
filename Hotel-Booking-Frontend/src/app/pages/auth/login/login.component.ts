@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private destroyed$ = new Subject<void>();
   private timeout: any;
+  isLoading = false;
 
   constructor(
     protected fb: FormBuilder,
@@ -31,10 +32,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.loginForm.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.loginError = '';
+        this.isLoading = false;
       });
   }
 
@@ -44,17 +47,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.isLoading = true;
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.authSrv
         .login(username!, password!)
         .pipe(
           catchError((err) => {
+            this.isLoading = false;
             if (err.error?.message === 'email not confirmed') {
+              this.isLoading = false;
               this.notify.errorMessage(
                 'Your email has not been confirmed. Please check your inbox!'
               );
             } else {
+              this.isLoading = false;
               this.notify.errorMessage('Invalid or incorrect credentials');
             }
             return throwError(() => err);
@@ -62,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         )
         .subscribe({
           next: (user) => {
+            this.isLoading = false;
             this.router.navigate(['/home']);
           },
           error: () => {},

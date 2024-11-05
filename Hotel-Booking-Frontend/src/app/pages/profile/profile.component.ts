@@ -9,12 +9,15 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ProfileComponent {
   user: User | null = null;
+  isLoading = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.currentUser$.subscribe((user) => {
       this.user = user;
+      this.isLoading = false;
     });
   }
 }

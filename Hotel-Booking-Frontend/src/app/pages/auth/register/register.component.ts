@@ -107,6 +107,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           },
         });
     } else {
+      this.isLoading = false;
       this.notification.errorMessage('Please fill in all fields correctly.');
     }
   }

@@ -19,6 +19,7 @@ export class NewAddComponent {
   fileNames: string = '';
   services: Amenity[] = [];
   hotelTypes: HotelType[] = [];
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,6 +62,7 @@ export class NewAddComponent {
   }
 
   async onSubmit() {
+    this.isLoading = true;
     const amenitiesArray = this.hotelForm.value.amenities;
 
     const formData = new FormData();
@@ -83,11 +85,13 @@ export class NewAddComponent {
       const response = await this.hotelService
         .createHotel(formData)
         .toPromise();
+      this.isLoading = false;
       this.notify.successMessage('Hotel created successfully');
       this.hotelForm.reset();
       this.selectedFiles = [];
       this.fileNames = '';
     } catch (error) {
+      this.isLoading = false;
       this.handleError(error);
     }
   }

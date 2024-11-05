@@ -8,11 +8,13 @@
 
   .photo-gallery {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll;
     gap: 10px;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #e0e0e0;
+    max-width: 100%;
+    white-space: nowrap;
 
     .gallery-photo {
       height: 200px;
@@ -33,14 +35,14 @@
     max-width: 800px;
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 15px;
       color: #333;
     }
 
     .hotel-description {
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.5;
       color: #555;
       margin-bottom: 20px;
     }
@@ -69,19 +71,13 @@
 
       .date-fields {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         margin-bottom: 20px;
-      }
 
-      .start-date,
-      .end-date {
-        flex: 1;
-        margin-right: 10px;
-      }
-
-      .start-date:last-child,
-      .end-date:last-child {
-        margin-right: 0;
+        .start-date,
+        .end-date {
+          margin-bottom: 10px;
+        }
       }
 
       .guest-container {
@@ -115,6 +111,63 @@
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hotel-detail-container {
+    padding: 10px;
+  }
+
+  .photo-gallery {
+    .gallery-photo {
+      height: 150px;
+    }
+  }
+
+  .hotel-info {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .hotel-description {
+      font-size: 0.9rem;
+    }
+  }
+
+  .date-range-picker {
+    .guest-container {
+      .guest-field,
+      .book-btn {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-gallery {
+    gap: 5px;
+  }
+
+  .hotel-info {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .hotel-description {
+      font-size: 0.85rem;
+    }
+
+    .hotel-amenities {
+      gap: 5px;
+    }
+  }
+
+  .date-range-picker {
+    .date-fields {
+      margin-bottom: 10px;
     }
   }
 }

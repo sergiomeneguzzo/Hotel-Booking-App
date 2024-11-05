@@ -17,6 +17,9 @@ export class HotelListComponent implements OnInit {
   services: Amenity[] = [];
   filteredHotels: Hotel[] = [];
   filterForm: FormGroup;
+  showFilters = false;
+
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,9 +38,15 @@ export class HotelListComponent implements OnInit {
     });
   }
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
+
   ngOnInit(): void {
+    this.isLoading = true;
     this.HotelSrv.getHotels().subscribe((hotels) => {
       this.hotels = hotels;
+      this.isLoading = false;
       this.filteredHotels = hotels;
     });
 

@@ -22,6 +22,8 @@ export class HotelDetailComponent implements OnInit {
   isDatepickerDisabled: boolean = false;
   bookingForm: FormGroup;
 
+  isLoading = false;
+
   constructor(
     private route: ActivatedRoute,
     private hotelService: HotelService,
@@ -39,10 +41,12 @@ export class HotelDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     const hotelId = this.route.snapshot.paramMap.get('id');
     if (hotelId) {
       this.hotelService.getHotelById(hotelId).subscribe((hotel) => {
         this.hotel = hotel;
+        this.isLoading = false;
         this.checkAvailability();
       });
     }
@@ -69,13 +73,16 @@ export class HotelDetailComponent implements OnInit {
   }
 
   checkAvailability() {
+    this.isLoading = true;
     const hotelId = this.route.snapshot.paramMap.get('id');
     if (hotelId) {
       this.bookingService.getUnavailableDates(hotelId).subscribe(
         (unavailableDates) => {
+          this.isLoading = false;
           this.unavailableDates = unavailableDates;
         },
         (error) => {
+          this.isLoading = false;
           console.error('Error fetching unavailable dates:', error);
         }
       );
@@ -103,6 +110,7 @@ export class HotelDetailComponent implements OnInit {
   }
 
   bookHotel() {
+    this.isLoading = true;
     if (this.bookingForm.valid) {
       const { startDate, endDate, numberOfGuests } = this.bookingForm.value;
       const bookingDetails = {
@@ -114,10 +122,12 @@ export class HotelDetailComponent implements OnInit {
 
       this.bookingService.createBooking(bookingDetails).subscribe(
         (response) => {
+          this.isLoading = false;
           this.notify.successMessage('Booking confirmed!');
           this.bookingForm.reset();
         },
         (error) => {
+          this.isLoading = false;
           console.error('Error creating booking:', error);
           this.notify.errorMessage(
             'Failed to create booking. Please try again'
@@ -125,6 +135,7 @@ export class HotelDetailComponent implements OnInit {
         }
       );
     } else {
+      this.isLoading = false;
       this.notify.warningMessage('Please fill all required fields.');
     }
   }

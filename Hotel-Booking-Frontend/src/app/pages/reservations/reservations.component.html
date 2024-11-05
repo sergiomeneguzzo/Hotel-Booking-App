@@ -1,5 +1,9 @@
+@if(isLoading) {
+<app-loader></app-loader>
+}
+
 <div class="user-bookings">
-  <h2>Your Reservations</h2>
+  <h2>Reservations</h2>
   <div *ngIf="loading" class="loading">Loading...</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div *ngIf="!loading && !errorMessage">

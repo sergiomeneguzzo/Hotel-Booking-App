@@ -12,6 +12,7 @@ export class ReservationsComponent {
   bookings: Booking[] = [];
   loading = true;
   errorMessage: string | null = null;
+  isLoading = false;
 
   constructor(private bookingService: BookingService) {}
 
@@ -20,13 +21,16 @@ export class ReservationsComponent {
   }
 
   loadBookings(): void {
+    this.loading = true;
     this.bookingService.getBookingsByUser().subscribe(
       (data) => {
+        this.isLoading = false;
         this.bookings = data;
         console.log('bookings:', data);
         this.loading = false;
       },
       (error) => {
+        this.isLoading = false;
         this.errorMessage = 'Unable to load bookings. Please try again later.';
         this.loading = false;
       }

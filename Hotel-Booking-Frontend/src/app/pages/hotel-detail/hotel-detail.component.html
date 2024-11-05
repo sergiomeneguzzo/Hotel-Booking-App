@@ -1,4 +1,6 @@
-@if (hotel) {
+@if(isLoading) {
+<app-loader></app-loader>
+} @if (hotel) {
 <div class="hotel-detail-container">
   <div class="photo-gallery">
     @for (photo of hotel.photos; track $index) {
