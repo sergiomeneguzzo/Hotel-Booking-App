@@ -12,6 +12,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { guestGuard } from './guards/guest.guard';
 import { HotelDetailComponent } from './pages/hotel-detail/hotel-detail.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
+import { HomesComponent } from './pages/homes/homes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'new-add', component: NewAddComponent, canActivate: [authGuard] },
   { path: 'hotels', component: HotelListComponent, canActivate: [authGuard] },
+  { path: 'homes', component: HomesComponent, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   {
     path: 'hotels/:id',

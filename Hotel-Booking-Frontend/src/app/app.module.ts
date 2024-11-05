@@ -47,6 +47,7 @@ import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { HomesComponent } from './pages/homes/homes.component';
 
 registerLocaleData(localeIt);
 @NgModule({
@@ -65,6 +66,7 @@ registerLocaleData(localeIt);
     HotelDetailComponent,
     ReservationsComponent,
     LoaderComponent,
+    HomesComponent,
   ],
   imports: [
     BrowserModule,

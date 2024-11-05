@@ -10,5 +10,5 @@ export interface Hotel {
   amenities: (string | Amenity)[];
   photos: string[];
   pricePerNight: number;
-  hotelTypeId: string | HotelType;
+  hotelTypeId: HotelType;
 }

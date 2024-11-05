@@ -32,12 +32,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.loginForm.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.loginError = '';
-        this.isLoading = false;
       });
   }
 
