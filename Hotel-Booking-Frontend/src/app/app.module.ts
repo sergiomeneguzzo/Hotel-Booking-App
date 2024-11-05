@@ -45,6 +45,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HotelDetailComponent } from './pages/hotel-detail/hotel-detail.component';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { ReservationsComponent } from './pages/reservations/reservations.component';
 
 registerLocaleData(localeIt);
 @NgModule({
@@ -61,6 +62,7 @@ registerLocaleData(localeIt);
     HotelCardComponent,
     ProfileComponent,
     HotelDetailComponent,
+    ReservationsComponent,
   ],
   imports: [
     BrowserModule,

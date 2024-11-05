@@ -6,12 +6,20 @@
   <ul class="nav-links">
     <li routerLink="/hotels">Explore</li>
     <li>Entire Homes</li>
-    <li>My Reservations</li>
+    <li routerLink="bookings">My Reservations</li>
     <li routerLink="/new-add">New Listing</li>
   </ul>
   <div class="profile-menu" (click)="toggleProfileMenu()">
     <img [src]="user?.picture" alt="Profile" class="profile-pic" />
     <div class="dropdown" [class.active]="profileMenuActive">
+      @if (isMobile) {
+      <ul class="nav-links-mobile">
+        <li routerLink="/hotels">Explore</li>
+        <li>Entire Homes</li>
+        <li routerLink="/bookings">Reservations</li>
+        <li routerLink="/new-add">New Listing</li>
+      </ul>
+      }
       <p (click)="navigateToProfile()">Profile</p>
       <p (click)="onLogout()" class="log-out-btn">Logout</p>
     </div>

@@ -1,6 +1,8 @@
+import { IHotel } from '../hotel/hotel.entity';
+
 export interface IBooking extends Document {
   userId: string;
-  hotelId: string;
+  hotel: IHotel;
   checkInDate: Date;
   checkOutDate: Date;
   guests: number;

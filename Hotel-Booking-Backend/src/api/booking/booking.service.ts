@@ -36,7 +36,7 @@ export default class BookingService {
   }
 
   public static async getBookingsByUser(userId: string): Promise<IBooking[]> {
-    return await Booking.find({ userId }).exec();
+    return await Booking.find({ userId }).populate('hotel').exec();
   }
 
   public static async getAllBookings(): Promise<IBooking[]> {

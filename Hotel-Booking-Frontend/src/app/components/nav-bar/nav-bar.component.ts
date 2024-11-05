@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { User } from '../../interfaces/user.entity';
 import { Router } from '@angular/router';
 
@@ -11,8 +17,12 @@ export class NavBarComponent {
   @Output() logout = new EventEmitter<void>();
   @Input() user: User | null = null;
   profileMenuActive: boolean = false;
+  navLinksActive = false;
+  isMobile: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.checkIfMobile();
+  }
 
   onLogout() {
     this.logout.emit();
@@ -24,5 +34,14 @@ export class NavBarComponent {
 
   navigateToProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  checkIfMobile() {
+    this.isMobile = window.innerWidth <= 768;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkIfMobile();
   }
 }

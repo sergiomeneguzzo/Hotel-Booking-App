@@ -1,0 +1,41 @@
+<div class="user-bookings">
+  <h2>Your Reservations</h2>
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="!loading && !errorMessage">
+    <mat-card *ngFor="let booking of bookings" class="booking-card">
+      <div class="gallery-photo-container">
+        <div class="booking-header">
+          <mat-card-title>{{ booking.hotel.name }}</mat-card-title>
+          <mat-card-subtitle>{{ booking.hotel.location }}</mat-card-subtitle>
+          <hr class="title-separator" />
+        </div>
+        <img
+          [src]="getImageUrl(booking.hotel.photos[0])"
+          alt="{{ booking.hotel.name }}"
+          class="gallery-photo"
+        />
+      </div>
+      <mat-card-content>
+        <p><strong>Check-in:</strong> {{ booking.checkInDate | date }}</p>
+        <p><strong>Check-out:</strong> {{ booking.checkOutDate | date }}</p>
+        <p><strong>Guests:</strong> {{ booking.guests }}</p>
+        <p>
+          <strong>Status:</strong>
+          <span [ngClass]="getStatusClass(booking.status)">
+            {{ booking.status }}
+            <mat-icon *ngIf="booking.status === 'confirmed'" class="status-icon"
+              >check_circle</mat-icon
+            >
+            <mat-icon *ngIf="booking.status === 'pending'" class="status-icon"
+              >hourglass_empty</mat-icon
+            >
+            <mat-icon *ngIf="booking.status === 'canceled'" class="status-icon"
+              >cancel</mat-icon
+            >
+          </span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

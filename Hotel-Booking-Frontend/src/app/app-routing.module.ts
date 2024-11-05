@@ -11,6 +11,7 @@ import { HotelListComponent } from './pages/hotel-list/hotel-list.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { guestGuard } from './guards/guest.guard';
 import { HotelDetailComponent } from './pages/hotel-detail/hotel-detail.component';
+import { ReservationsComponent } from './pages/reservations/reservations.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'hotels/:id',
     component: HotelDetailComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'bookings',
+    component: ReservationsComponent,
     canActivate: [authGuard],
   },
 ];

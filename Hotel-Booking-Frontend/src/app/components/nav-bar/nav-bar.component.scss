@@ -49,6 +49,24 @@
       padding: 0.5rem;
       z-index: 1000;
 
+      // Links di navigazione per dispositivi mobili
+      .nav-links-mobile {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        padding: 0.5rem 1rem;
+        width: 100%;
+
+        li {
+          cursor: pointer;
+          padding: 0.5rem 0;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+        }
+      }
+
       p {
         cursor: pointer;
         padding: 0.5rem 1rem;
@@ -120,6 +138,10 @@
     }
 
     .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links-mobile {
       display: flex;
     }
   }

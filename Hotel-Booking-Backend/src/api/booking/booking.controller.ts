@@ -31,7 +31,7 @@ export const createBooking = async (
 
   const bookingDTO = new BookingDTO();
   bookingDTO.userId = userId!;
-  bookingDTO.hotelId = hotelId;
+  bookingDTO.hotel = hotelId;
   bookingDTO.checkInDate = new Date(checkInDate);
   bookingDTO.checkOutDate = new Date(checkOutDate);
   bookingDTO.guests = guests;
@@ -156,6 +156,7 @@ export const getBookingsByUser = async (
 
   try {
     const bookings = await BookingService.getBookingsByUser(userId);
+    console.log('Bookings with populated hotel:', bookings);
     return res.status(200).json(bookings);
   } catch (error) {
     logService.add('Booking Retrieval Error', false);

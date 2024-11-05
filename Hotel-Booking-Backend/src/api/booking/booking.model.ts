@@ -4,7 +4,11 @@ import { IBooking } from './booking.entity';
 export const bookingSchema = new mongoose.Schema<IBooking>(
   {
     userId: { type: String, required: true },
-    hotelId: { type: String, required: true },
+    hotel: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Hotel',
+      required: true,
+    },
     checkInDate: { type: Date, required: true },
     checkOutDate: { type: Date, required: true },
     guests: { type: Number, required: true },

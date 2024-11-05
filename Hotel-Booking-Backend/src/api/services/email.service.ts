@@ -21,7 +21,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     attachments: [
       {
         filename: 'LogoPW1.png',
-        path: 'since2024.png',
+        path: 'logo.png',
         cid: 'logo',
       },
     ],
@@ -35,8 +35,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #1f1f1f;
-        color: #d1d5db;
+        background-color: #1f1f1f; /* Dark background */
+        color: #d1d5db; /* Light text color */
         margin: 0;
         padding: 0;
       }
@@ -44,7 +44,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       .email-container {
         max-width: 600px;
         margin: 40px auto;
-        background-color: #2d2d2d;
+        background-color: #2d2d2d; /* Darker container */
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -53,14 +53,14 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
 
       h1 {
         font-size: 24px;
-        color: #f9fafb;
+        color: #d6efe2; /* Primary color */
         margin-bottom: 20px;
       }
 
       p {
         font-size: 16px;
         line-height: 1.5;
-        color: #9ca3af;
+        color: #5ec597; /* Text color */
         margin: 20px 0;
       }
 
@@ -68,8 +68,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         display: inline-block;
         padding: 10px 20px;
         font-size: 18px;
-        color: #f9fafb;
-        background-color: #4b5563;
+        color: #ffffff; /* White text */
+        background-color: #5ec597; /* Button background color */
         text-decoration: none;
         border-radius: 6px;
         font-weight: bold;
@@ -77,7 +77,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       }
 
       .btn-confirm:hover {
-        background-color: #374151;
+        background-color: #4b5563; /* Darker on hover */
       }
 
       .footer {
@@ -114,14 +114,14 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         tuo indirizzo email cliccando sul pulsante qui sotto.
       </p>
 
-      <a href="http://localhost:4200/email-confirmed?token=${token}" class="btn-confirm"
-        >Completa Registrazione</a
-      >
+      <a href="http://localhost:4200/email-confirmed?token=${token}" class="btn-confirm">
+        Completa Registrazione
+      </a>
 
       <p>Se non hai richiesto questo account, puoi ignorare questa email.</p>
 
       <div class="footer">
-        <p>Grazie,<br />Il Team di FifthPocket</p>
+        <p>Grazie,<br />Il Team di Tropical</p>
       </div>
     </div>
   </body>

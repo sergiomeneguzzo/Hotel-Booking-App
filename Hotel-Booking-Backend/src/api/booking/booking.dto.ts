@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   Min,
   Max,
+  IsMongoId,
 } from 'class-validator';
 
 export class BookingDTO {
@@ -13,9 +14,9 @@ export class BookingDTO {
   @IsNotEmpty()
   userId!: string;
 
-  @IsString()
+  @IsMongoId()
   @IsNotEmpty()
-  hotelId!: string;
+  hotel!: string;
 
   @IsDate()
   @IsNotEmpty()

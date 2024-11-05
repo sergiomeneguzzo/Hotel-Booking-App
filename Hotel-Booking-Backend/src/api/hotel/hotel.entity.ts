@@ -7,8 +7,8 @@ export interface IHotel {
   description: string;
   location: string;
   maxGuests: number;
-  amenities: string[] | IAmenity[];
+  amenities: IAmenity[];
   photos: string[];
   pricePerNight: number;
-  hotelTypeId: string | IHotelType;
+  hotelTypeId: IHotelType;
 }
