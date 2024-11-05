@@ -13,31 +13,36 @@
     />
   </div>
 
+  <div class="filter-input price-range" formGroupName="priceRange">
+    <div class="price-inputs">
+      <div class="filter-input-inner">
+        <span class="material-icons icon">attach_money</span>
+        <input type="number" formControlName="min" placeholder="Min price" />
+      </div>
+      <div class="filter-input-wrapper"></div>
+      <div class="filter-input-inner">
+        <span class="material-icons icon">attach_money</span>
+        <input type="number" formControlName="max" placeholder="Max price" />
+      </div>
+    </div>
+  </div>
+
   <div class="filter-input">
-    <span class="material-icons icon">room_service</span>
+    <!-- <span class="material-icons icon">room_service</span> -->
     <mat-form-field class="service-multiselect" appearance="outline">
       <mat-label>Services</mat-label>
       <mat-select formControlName="services" multiple>
         @for (service of services; track $index) {
-        <mat-option [value]="service.name">
-          {{ service.name }}
-        </mat-option>
+        <mat-option [value]="service.name">{{ service.name }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div class="price-range" formGroupName="priceRange">
-    <label>Price per night:</label>
-    <mat-slider
-      min="0"
-      max="1000"
-      step="10"
-      thumbLabel
-      class="price-slider"
-      formControlName="sliderValue"
-      (change)="onPriceRangeChange($event)"
-    ></mat-slider>
+  <div class="clear-filters">
+    <button (click)="clearFilters()" class="clear-button">
+      <span class="material-icons">clear_all</span> Clear Filters
+    </button>
   </div>
 </div>
 

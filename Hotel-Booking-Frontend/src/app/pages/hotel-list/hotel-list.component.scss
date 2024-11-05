@@ -1,24 +1,26 @@
+@import "../../../styles.scss";
 .filters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem;
   border-radius: 12px;
   margin: 2rem 0;
 
   .filter-input {
     position: relative;
-    flex: 1;
-    max-width: 250px;
     display: flex;
     align-items: center;
+    flex: 1;
+    max-width: 220px;
 
     .icon {
       position: absolute;
       left: 10px;
       color: #757575;
+      font-size: 20px;
       line-height: 40px;
     }
 
@@ -36,30 +38,101 @@
         box-shadow: 0 0 8px rgba(53, 168, 224, 0.2);
       }
     }
+
+    mat-form-field {
+      flex: 1;
+      margin: 0;
+      .mat-form-field-outline {
+        border-color: #ddd;
+      }
+      .mat-form-field-outline-thick {
+        border-color: #35a8e0;
+      }
+    }
   }
 
   .price-range {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 300px;
     flex: 1;
+    max-width: 250px;
 
     label {
-      margin-bottom: 0.5rem;
       font-weight: 600;
-      color: #222222;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-range {
+      flex: 1;
+      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 0.5rem;
+      }
+
+      .price-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .filter-input-inner {
+          position: relative;
+          flex: 1;
+
+          .icon {
+            position: absolute;
+            left: 10px;
+            color: #757575;
+            font-size: 20px;
+            line-height: 40px;
+          }
+
+          input {
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+
+            &:focus {
+              border-color: #35a8e0;
+              outline: none;
+              box-shadow: 0 0 8px rgba(53, 168, 224, 0.2);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .clear-filters {
+    display: flex;
+    align-items: center;
+
+    .clear-button {
+      display: flex;
+      align-items: center;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
       font-size: 0.95rem;
-    }
+      cursor: pointer;
+      transition: background-color 0.3s;
 
-    .price-slider {
-      width: 100%;
-      margin-top: 0.5rem;
-      color: #35a8e0;
-    }
+      &:hover {
+        background-color: #2bb589;
+      }
 
-    .mat-slider-thumb-label {
-      background-color: #35a8e0;
+      .material-icons {
+        margin-right: 0.5rem;
+        font-size: 20px;
+      }
     }
   }
 }

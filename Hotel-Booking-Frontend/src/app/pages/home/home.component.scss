@@ -18,7 +18,7 @@
       h1 {
         font-size: 3rem;
         font-weight: 700;
-        color: black;
+        color: $light-gray;
       }
 
       p {
@@ -66,13 +66,13 @@
 
       h2 {
         font-size: 1.5rem;
-        color: black;
+        color: $light-gray;
         margin-bottom: 1rem;
       }
 
       .cta-btn {
         padding: 0.8rem 1.5rem;
-        background-color: #19191a;
+        background-color: $primary-color;
         color: white;
         border: none;
         border-radius: 25px;

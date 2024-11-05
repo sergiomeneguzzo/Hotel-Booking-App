@@ -47,16 +47,6 @@ export class HotelListComponent implements OnInit {
 
     this.filterForm.valueChanges.subscribe(() => this.filterHotels());
   }
-  onPriceRangeChange(event: any) {
-    const priceRange = this.filterForm.get('priceRange');
-    if (priceRange) {
-      const min = priceRange.get('min')?.value;
-      const max = priceRange.get('max')?.value;
-
-      priceRange.patchValue({ min, max });
-      this.filterHotels();
-    }
-  }
 
   filterHotels() {
     const { searchQuery, maxGuests, services, priceRange } =
@@ -83,6 +73,19 @@ export class HotelListComponent implements OnInit {
 
       return matchesSearch && matchesGuests && matchesPrice && matchesServices;
     });
+  }
+
+  clearFilters() {
+    this.filterForm.reset({
+      searchQuery: '',
+      maxGuests: null,
+      services: [],
+      priceRange: {
+        min: 0,
+        max: 1000,
+      },
+    });
+    this.filteredHotels = this.hotels;
   }
 
   goToHotelDetail(id: string) {
