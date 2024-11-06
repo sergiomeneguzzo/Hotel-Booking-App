@@ -5,6 +5,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon",
+    "buildDeploy": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sergio Meneguzzo",
