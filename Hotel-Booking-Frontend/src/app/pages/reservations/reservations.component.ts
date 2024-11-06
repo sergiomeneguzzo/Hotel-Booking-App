@@ -11,7 +11,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
   styleUrl: './reservations.component.scss',
 })
 export class ReservationsComponent {
-  baseUrl: string = 'http://localhost:3000/uploads';
+  baseUrl: string = 'https://tropical-api.onrender.com/uploads';
   bookings: Booking[] = [];
   errorMessage: string | null = null;
   isLoading = false;

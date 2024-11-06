@@ -8,7 +8,7 @@ import { Hotel } from '../../interfaces/hotel.entity';
   styleUrl: './hotel-card.component.scss',
 })
 export class HotelCardComponent {
-  baseUrl: string = 'http://localhost:3000/uploads';
+  baseUrl: string = 'https://tropical-api.onrender.com/uploads';
 
   @Input() hotel!: Hotel;
   constructor(private router: Router) {}
