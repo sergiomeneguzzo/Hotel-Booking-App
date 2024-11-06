@@ -114,7 +114,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         tuo indirizzo email cliccando sul pulsante qui sotto.
       </p>
 
-      <a href="http://localhost:4200/email-confirmed?token=${token}" class="btn-confirm">
+      <a href="https://hotel-booking-app-sigma-three.vercel.app/email-confirmed?token=${token}" class="btn-confirm">
         Completa Registrazione
       </a>
 
