@@ -93,57 +93,66 @@ export class HotelDetailComponent implements OnInit {
     }
   }
 
-  // checkIfDateIsUnavailable(date: Date | null): boolean {
-  //   if (!date) {
-  //     return true;
-  //   }
-  //   console.log(this.unavailableDates);
-  //   return this.unavailableDates.some(
-  //     (unavailableDate) =>
-  //       date >= new Date(unavailableDate.start) &&
-  //       date <= new Date(unavailableDate.end)
-  //   );
-  // }
-  checkIfDateIsUnavailable(d: Date | null): boolean {
-    if (!d) {
+  ngAfterViewInit() {
+    this.checkIfDateIsUnavailable = (d: Date | null): boolean => {
+      if (!d) {
+        return true;
+      }
+      console.log('d:', d);
+      this.hotelId = this.route.snapshot.paramMap.get('id');
+
+      if (!this.hotelId) {
+        console.warn('Hotel ID is missing');
+        return false;
+      }
+
+      this.bookingService.getUnavailableDates(this.hotelId).subscribe(
+        (unavailableDates) => {
+          this.isLoading = false;
+          if (!unavailableDates || !Array.isArray(unavailableDates)) {
+            console.log('ERRORE PORCO DIO');
+            return false; // Return false if unavailableDates is not in the correct format
+          }
+
+          // Check if the given date falls within any of the unavailable date ranges
+          const isUnavailable = unavailableDates.some((date) => {
+            const currentDate = new Date(d!);
+            return (
+              currentDate >= new Date(date.start) &&
+              currentDate <= new Date(date.end)
+            );
+          });
+
+          console.log('UNAVAILABLE' + isUnavailable);
+          return isUnavailable;
+        },
+        (error) => {
+          console.error('Error fetching unavailable dates:', error);
+          return false;
+        }
+      );
+
       return true;
-    }
+    };
+  }
 
-    this.hotelId = this.route.snapshot.paramMap.get('id');
+  allowAllDates(date: Date | null): boolean {
+    return true;
+  }
 
-    if (!this.hotelId) {
-      console.warn('Hotel ID is missing');
+  checkIfDateIsUnavailable(date: Date | null): boolean {
+    if (!date) {
       return false;
     }
 
-    this.bookingService.getUnavailableDates(this.hotelId).subscribe(
-      (unavailableDates) => {
-        this.isLoading = false;
-        if (!unavailableDates || !Array.isArray(unavailableDates)) {
-          console.warn(
-            'Unavailable dates are not available or are not in the correct format.'
-          );
-          return false; // Return false if unavailableDates is not in the correct format
-        }
+    // Check if the date falls within any of the unavailable date ranges
+    return this.unavailableDates.some((unavailableDate) => {
+      const currentDate = new Date(date);
+      const start = new Date(unavailableDate.start);
+      const end = new Date(unavailableDate.end);
 
-        // Check if the given date falls within any of the unavailable date ranges
-        const isUnavailable = unavailableDates.some((date) => {
-          const currentDate = new Date(d!);
-          return (
-            currentDate >= new Date(date.start) &&
-            currentDate <= new Date(date.end)
-          );
-        });
-
-        return isUnavailable;
-      },
-      (error) => {
-        console.error('Error fetching unavailable dates:', error);
-        return false;
-      }
-    );
-
-    return false; // Default return if async request is not completed yet
+      return currentDate >= start && currentDate <= end;
+    });
   }
 
   bookHotel() {

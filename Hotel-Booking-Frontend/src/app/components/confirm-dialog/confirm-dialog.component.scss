@@ -1,0 +1,55 @@
+@import "../../../styles.scss";
+
+:host {
+  display: block;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: $text-color;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+mat-dialog-content {
+  color: $text-color;
+  font-size: 1rem;
+  padding-bottom: 20px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  button {
+    border: 1px solid $border-color;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: $light-gray;
+      color: $text-color;
+    }
+
+    &:first-child {
+      background-color: $primary-color;
+      color: $text-color;
+    }
+
+    &:last-child {
+      background-color: red;
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: darken(red, 10%);
+      }
+    }
+  }
+}

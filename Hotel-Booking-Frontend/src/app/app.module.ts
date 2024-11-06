@@ -48,6 +48,9 @@ import localeIt from '@angular/common/locales/it';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HomesComponent } from './pages/homes/homes.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localeIt);
 @NgModule({
@@ -67,6 +70,7 @@ registerLocaleData(localeIt);
     ReservationsComponent,
     LoaderComponent,
     HomesComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +98,7 @@ registerLocaleData(localeIt);
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     provideAnimationsAsync(),

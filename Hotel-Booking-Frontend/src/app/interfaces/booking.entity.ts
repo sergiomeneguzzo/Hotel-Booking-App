@@ -1,7 +1,7 @@
 import { Hotel } from './hotel.entity';
 
 export interface Booking {
-  _id?: string;
+  id: string;
   userId: string;
   hotel: Hotel;
   roomType: string;

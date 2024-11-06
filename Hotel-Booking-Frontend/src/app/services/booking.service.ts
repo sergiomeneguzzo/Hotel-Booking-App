@@ -14,6 +14,10 @@ export class BookingService {
     return this.http.post(`${APIURL}/api/booking`, bookingData);
   }
 
+  deleteBooking(bookingId: string): Observable<any> {
+    return this.http.delete(`${APIURL}/api/booking/${bookingId}`);
+  }
+
   getUnavailableDates(
     hotelId: string
   ): Observable<{ start: Date; end: Date }[]> {

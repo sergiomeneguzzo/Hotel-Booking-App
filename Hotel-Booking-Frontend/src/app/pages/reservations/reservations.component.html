@@ -4,10 +4,16 @@
 
 <div class="user-bookings">
   <h2>Reservations</h2>
-  <div *ngIf="loading" class="loading">Loading...</div>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  <div *ngIf="!loading && !errorMessage">
-    <mat-card *ngFor="let booking of bookings" class="booking-card">
+  <div>
+    @for (booking of bookings; track $index) {
+    <mat-card class="booking-card">
+      <button
+        class="delete-button"
+        (click)="openDeleteDialog(booking.id)"
+        aria-label="Delete booking"
+      >
+        <mat-icon class="delete-icon">close</mat-icon>
+      </button>
       <div class="gallery-photo-container">
         <div class="booking-header">
           <mat-card-title>{{ booking.hotel.name }}</mat-card-title>
@@ -41,5 +47,6 @@
         </p>
       </mat-card-content>
     </mat-card>
+    }
   </div>
 </div>
