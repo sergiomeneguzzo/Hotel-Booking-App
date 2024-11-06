@@ -16,9 +16,9 @@ export class BookingService {
 
   getUnavailableDates(
     hotelId: string
-  ): Observable<{ start: string; end: string }[]> {
-    return this.http.get<{ start: string; end: string }[]>(
-      `${APIURL}/api/unavailable-dates/${hotelId}`
+  ): Observable<{ start: Date; end: Date }[]> {
+    return this.http.get<{ start: Date; end: Date }[]>(
+      `${APIURL}/api/booking/unavailable-dates/${hotelId}`
     );
   }
 

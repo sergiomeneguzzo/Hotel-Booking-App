@@ -18,9 +18,10 @@ export class HotelDetailComponent implements OnInit {
   baseUrl: string = 'http://localhost:3000/uploads';
   hotel: Hotel | undefined;
   today: Date = new Date();
-  unavailableDates: { start: string; end: string }[] = [];
+  unavailableDates: { start: Date; end: Date }[] = [];
   isDatepickerDisabled: boolean = false;
   bookingForm: FormGroup;
+  hotelId: string | null = null;
 
   isLoading = false;
 
@@ -42,9 +43,9 @@ export class HotelDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    const hotelId = this.route.snapshot.paramMap.get('id');
-    if (hotelId) {
-      this.hotelService.getHotelById(hotelId).subscribe((hotel) => {
+    this.hotelId = this.route.snapshot.paramMap.get('id');
+    if (this.hotelId) {
+      this.hotelService.getHotelById(this.hotelId).subscribe((hotel) => {
         this.hotel = hotel;
         this.isLoading = false;
         this.checkAvailability();
@@ -55,9 +56,7 @@ export class HotelDetailComponent implements OnInit {
       this.onStartDateChange();
     });
 
-    this.bookingForm.valueChanges.subscribe(() => {
-      this.checkIfDatesAreAvailable();
-    });
+    this.bookingForm.valueChanges.subscribe(() => {});
   }
 
   isAmenity(amenity: string | Amenity): amenity is Amenity {
@@ -78,8 +77,13 @@ export class HotelDetailComponent implements OnInit {
     if (hotelId) {
       this.bookingService.getUnavailableDates(hotelId).subscribe(
         (unavailableDates) => {
-          this.isLoading = false;
           this.unavailableDates = unavailableDates;
+          this.checkIfDateIsUnavailable(
+            this.bookingForm.get('startDate')?.value
+          );
+          this.checkIfDateIsUnavailable(this.bookingForm.get('endDate')?.value);
+          console.log('Unavailable dates:', this.unavailableDates);
+          this.isLoading = false;
         },
         (error) => {
           this.isLoading = false;
@@ -89,24 +93,57 @@ export class HotelDetailComponent implements OnInit {
     }
   }
 
-  checkIfDatesAreAvailable() {
-    const startDate = this.bookingForm.get('startDate')?.value;
-    const endDate = this.bookingForm.get('endDate')?.value;
-    const isUnavailable = this.unavailableDates.some(
-      (date) =>
-        (startDate &&
-          new Date(date.start) <= new Date(startDate) &&
-          new Date(date.end) >= new Date(startDate)) ||
-        (endDate &&
-          new Date(date.start) <= new Date(endDate) &&
-          new Date(date.end) >= new Date(endDate))
-    );
-    if (isUnavailable) {
-      this.notify.errorMessage('Selected dates are not available');
-      this.isDatepickerDisabled = true;
-    } else {
-      this.isDatepickerDisabled = false;
+  // checkIfDateIsUnavailable(date: Date | null): boolean {
+  //   if (!date) {
+  //     return true;
+  //   }
+  //   console.log(this.unavailableDates);
+  //   return this.unavailableDates.some(
+  //     (unavailableDate) =>
+  //       date >= new Date(unavailableDate.start) &&
+  //       date <= new Date(unavailableDate.end)
+  //   );
+  // }
+  checkIfDateIsUnavailable(d: Date | null): boolean {
+    if (!d) {
+      return true;
     }
+
+    this.hotelId = this.route.snapshot.paramMap.get('id');
+
+    if (!this.hotelId) {
+      console.warn('Hotel ID is missing');
+      return false;
+    }
+
+    this.bookingService.getUnavailableDates(this.hotelId).subscribe(
+      (unavailableDates) => {
+        this.isLoading = false;
+        if (!unavailableDates || !Array.isArray(unavailableDates)) {
+          console.warn(
+            'Unavailable dates are not available or are not in the correct format.'
+          );
+          return false; // Return false if unavailableDates is not in the correct format
+        }
+
+        // Check if the given date falls within any of the unavailable date ranges
+        const isUnavailable = unavailableDates.some((date) => {
+          const currentDate = new Date(d!);
+          return (
+            currentDate >= new Date(date.start) &&
+            currentDate <= new Date(date.end)
+          );
+        });
+
+        return isUnavailable;
+      },
+      (error) => {
+        console.error('Error fetching unavailable dates:', error);
+        return false;
+      }
+    );
+
+    return false; // Default return if async request is not completed yet
   }
 
   bookHotel() {

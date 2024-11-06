@@ -68,7 +68,7 @@ export default class BookingService {
     return bookings.length === 0;
   }
 
-  public static async getBookingsByHotel(hotelId: string): Promise<IBooking[]> {
-    return await Booking.find({ hotelId }).exec();
+  public static async getBookingsByHotel(hotel: string): Promise<IBooking[]> {
+    return await Booking.find({ hotel }).populate('hotel').exec();
   }
 }

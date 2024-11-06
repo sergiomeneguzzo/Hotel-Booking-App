@@ -36,7 +36,7 @@
             formControlName="startDate"
             [min]="today"
             (dateChange)="onStartDateChange()"
-            [disabled]="isDatepickerDisabled"
+            [matDatepickerFilter]="checkIfDateIsUnavailable"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -53,7 +53,7 @@
             formControlName="endDate"
             [min]="bookingForm.get('startDate')?.value"
             (dateChange)="checkAvailability()"
-            [disabled]="isDatepickerDisabled"
+            [matDatepickerFilter]="checkIfDateIsUnavailable"
           />
           <mat-datepicker-toggle
             matSuffix
