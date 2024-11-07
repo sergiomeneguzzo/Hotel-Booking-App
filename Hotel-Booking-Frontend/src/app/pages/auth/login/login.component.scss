@@ -96,6 +96,7 @@
       border: 2px solid $border-color;
       border-radius: 12px;
       font-size: 16px;
+      text-overflow: ellipsis;
       transition: border-color 0.3s;
 
       &:focus {
@@ -112,6 +113,14 @@
       top: 50%;
       transform: translateY(-50%);
       color: #666;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .input-container {
+      .eye {
+        right: 5px;
+      }
     }
   }
 }

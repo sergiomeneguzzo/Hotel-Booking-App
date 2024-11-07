@@ -51,7 +51,11 @@
                 formControlName="password"
                 placeholder="Password"
               />
-              <button type="button" class="input-icon" (click)="hide = !hide">
+              <button
+                type="button"
+                class="input-icon eye"
+                (click)="hide = !hide"
+              >
                 <mat-icon>{{
                   hide ? "visibility_off" : "visibility"
                 }}</mat-icon>
