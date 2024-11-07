@@ -2,14 +2,30 @@
 
 This project is a web application for booking hotels and houses. The frontend is built using **Angular 18**, while the backend is developed with **Node.js** and **TypeScript**. It integrates **Passport Authentication** and email confirmation. The application is connected to **MongoDB Atlas** for storing user data and booking details. In the future, it will include a payment simulation feature using **FifthPocket**, another one of my projects for home banking.
 
-## Technologies Used
+# Project Overview
 
-- **Frontend:** Angular 18, styled with **SCSS**
-- **Backend:** Node.js with **TypeScript** for API development.
-- **Database:** MongoDB Atlas for data storage.
-- **Authentication:** Passport for user authentication with email confirmation.
-- **Email Confirmation:** Ensures that users confirm their email to activate their account.
-- **Future Feature:** Payment simulation with **FifthPocket** (Home Banking).
+## Frontend:
+- **Angular 18**: The frontend is built using Angular 18, styled with SCSS for a responsive and modern design.
+
+## Backend:
+- **Node.js with TypeScript**: The API is developed using Node.js with TypeScript for better type safety and scalability.
+
+## Database:
+- **MongoDB Atlas**: MongoDB Atlas is used for data storage, providing a scalable and cloud-based solution for the backend.
+
+## Authentication:
+- **Passport**: User authentication is implemented using Passport with email confirmation to ensure users confirm their email address to activate their accounts.
+
+## File Upload:
+- **Multer**: Multer is used for handling multipart/form-data, enabling users to upload files and photos.
+- **Cloudinary**: Cloudinary is integrated for storing and managing the uploaded files and photos in the cloud.
+
+## Email Confirmation:
+- **Email Confirmation**: After registration, users are required to confirm their email address to activate their account.
+
+## Future Feature:
+- **Payment Simulation**: A payment simulation feature will be implemented using FifthPocket for home banking functionality.
+
 
 ## Usage
 
