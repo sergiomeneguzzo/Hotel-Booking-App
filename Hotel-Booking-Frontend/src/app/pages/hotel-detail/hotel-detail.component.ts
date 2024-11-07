@@ -15,7 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./hotel-detail.component.scss'],
 })
 export class HotelDetailComponent implements OnInit {
-  baseUrl: string = 'https://tropical-api.onrender.com/uploads';
+  baseUrl: string = 'https://res.cloudinary.com';
   hotel: Hotel | undefined;
   today: Date = new Date();
   unavailableDates: { start: Date; end: Date }[] = [];
