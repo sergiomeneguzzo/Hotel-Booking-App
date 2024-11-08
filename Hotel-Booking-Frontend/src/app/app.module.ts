@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { ElementRef, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,7 +49,6 @@ import { ReservationsComponent } from './pages/reservations/reservations.compone
 import { LoaderComponent } from './components/loader/loader.component';
 import { HomesComponent } from './pages/homes/homes.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-
 import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localeIt);

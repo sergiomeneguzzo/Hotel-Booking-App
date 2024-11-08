@@ -4,6 +4,7 @@ import {
   HostListener,
   Input,
   Output,
+  ElementRef,
 } from '@angular/core';
 import { User } from '../../interfaces/user.entity';
 import { Router } from '@angular/router';
@@ -20,7 +21,7 @@ export class NavBarComponent {
   navLinksActive = false;
   isMobile: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private eRef: ElementRef) {
     this.checkIfMobile();
   }
 
@@ -43,5 +44,13 @@ export class NavBarComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.checkIfMobile();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    // Check if the click is outside of the profile menu
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.profileMenuActive = false;
+    }
   }
 }

@@ -5,7 +5,11 @@
 <div class="user-bookings">
   <h2>Reservations</h2>
   <div>
-    @for (booking of bookings; track $index) {
+    @if (!isLoading && bookings.length === 0) {
+    <p class="no-bookings-message">
+      You don't have any reservations yet, make one!
+    </p>
+    } @for (booking of bookings; track $index) {
     <mat-card class="booking-card">
       <button
         class="delete-button"
