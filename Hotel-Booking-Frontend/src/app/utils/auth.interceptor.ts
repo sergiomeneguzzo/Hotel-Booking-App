@@ -10,7 +10,12 @@ import { JwtService } from '../services/jwt.service';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private jwtSrv: JwtService) {}
 
+  //abilita cloudinary a fare richieste senza token
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if (req.url.includes('https://api.cloudinary.com/v1_1')) {
+      return next.handle(req);
+    }
+
     const authToken = this.jwtSrv.getToken();
 
     const authReq = authToken

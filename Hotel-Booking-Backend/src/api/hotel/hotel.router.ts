@@ -13,7 +13,7 @@ const router = Router();
 
 router.post(
   '/',
-  upload.array('uploads', 5),
+  upload.array('photos', 5),
   (req: Request, res: Response, next: NextFunction) => {
     createHotel(req, res, next);
   },

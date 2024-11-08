@@ -110,7 +110,6 @@ export class HotelDetailComponent implements OnInit {
         (unavailableDates) => {
           this.isLoading = false;
           if (!unavailableDates || !Array.isArray(unavailableDates)) {
-            console.log('ERRORE PORCO DIO');
             return false; // Return false if unavailableDates is not in the correct format
           }
 

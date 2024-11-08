@@ -16,6 +16,17 @@ export class HotelService {
     return this.http.post(`${APIURL}/api/hotels`, hotelData);
   }
 
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'ml_default');
+
+    return this.http.post(
+      'https://api.cloudinary.com/v1_1/dtizmgqqa/image/upload',
+      formData
+    );
+  }
+
   getHotels(): Observable<Hotel[]> {
     return this.http.get<Hotel[]>(`${APIURL}/api/hotels`);
   }

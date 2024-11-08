@@ -4,6 +4,7 @@ import HotelService from './hotel.service';
 import { HotelDTO } from './hotel.dto';
 import { validate } from 'class-validator';
 import logService from '../services/logs/log.service';
+import cloudinary from '../../utils/cloudinary-config';
 
 declare global {
   namespace Express {
@@ -24,32 +25,35 @@ export const createHotel = async (
   hotelDTO.location = req.body.location;
   hotelDTO.maxGuests = Number(req.body.maxGuests);
   hotelDTO.amenities = JSON.parse(req.body.amenities);
-  hotelDTO.photos = req.files?.map((file: any) => file.filename) || [];
   hotelDTO.pricePerNight = Number(req.body.pricePerNight);
   hotelDTO.hotelTypeId = req.body.hotelType;
 
-  const errors = await validate(hotelDTO);
-  if (errors.length > 0) {
-    logService.add('Hotel Validation Error', false);
-    return res.status(400).json({ message: 'Errore di validazione', errors });
-  }
-
-  if (hotelDTO.photos.length === 0) {
-    logService.add('No Photos Provided', false);
-    return res.status(400).json({ message: 'Almeno una foto è obbligatoria' });
-  }
-
   try {
+    hotelDTO.photos = req.body.photos;
+
+    if (Array.isArray(req.body.photos)) {
+      req.body.photos.forEach((photo, index) => {
+        console.log(`Element ${index}:`, photo);
+        console.log(`Type of element ${index}:`, typeof photo);
+      });
+    }
+
+    console.log('hotelDTO.photos:', hotelDTO.photos);
+
+    if (!hotelDTO.photos || hotelDTO.photos.length === 0) {
+      return res
+        .status(400)
+        .json({ message: 'At least one photo is required' });
+    }
+
     const hotel = await HotelService.createHotel(hotelDTO);
-    logService.add('Hotel Created', true);
     return res
       .status(201)
-      .json({ message: 'Hotel creato con successo', hotel });
+      .json({ message: 'Hotel created successfully', hotel });
   } catch (error) {
-    logService.add('Hotel Creation Error', false);
     return res.status(500).json({
-      message: `Errore del server: ${
-        error instanceof Error ? error.message : 'Errore sconosciuto'
+      message: `Server error: ${
+        error instanceof Error ? error.message : 'Unknown error'
       }`,
     });
   }

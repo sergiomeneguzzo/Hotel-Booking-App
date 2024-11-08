@@ -4,9 +4,10 @@ import { Hotel } from '../../interfaces/hotel.entity';
 import { HotelService } from '../../services/hotel.service';
 import { NotificationService } from '../../services/notification.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Amenity } from '../../interfaces/amenities.entity';
 import { HotelType } from '../../interfaces/hotel-type.entity';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-add',
@@ -46,7 +47,6 @@ export class NewAddComponent {
 
     this.hotelService.getHotelTypes().subscribe((data: HotelType[]) => {
       this.hotelTypes = data;
-      console.log('Hotel Types:', this.hotelTypes);
     });
   }
 
@@ -63,34 +63,55 @@ export class NewAddComponent {
 
   async onSubmit() {
     this.isLoading = true;
-    const amenitiesArray = this.hotelForm.value.amenities;
-
-    const formData = new FormData();
-    formData.append('name', this.hotelForm.value.name);
-    formData.append('description', this.hotelForm.value.description);
-    formData.append('location', this.hotelForm.value.location);
-    formData.append('maxGuests', this.hotelForm.value.maxGuests);
-    formData.append('hotelType', this.hotelForm.value.hotelType);
-    formData.append('amenities', JSON.stringify(amenitiesArray));
-    formData.append(
-      'pricePerNight',
-      this.hotelForm.value.pricePerNight.toString()
-    );
-
-    for (const file of this.selectedFiles) {
-      formData.append('uploads', file);
-    }
-
     try {
+      const amenitiesArray = this.hotelForm.value.amenities;
+
+      const formData = new FormData();
+      formData.append('name', this.hotelForm.value.name);
+      formData.append('description', this.hotelForm.value.description);
+      formData.append('location', this.hotelForm.value.location);
+      formData.append('maxGuests', this.hotelForm.value.maxGuests.toString());
+      formData.append('hotelType', this.hotelForm.value.hotelType);
+      formData.append('amenities', JSON.stringify(amenitiesArray));
+      formData.append(
+        'pricePerNight',
+        this.hotelForm.value.pricePerNight.toString()
+      );
+
+      const uploadPromises = this.selectedFiles.map((file) =>
+        this.hotelService.uploadFile(file).toPromise()
+      );
+
+      const uploadedFiles = await Promise.all(uploadPromises);
+      console.log(uploadedFiles);
+
+      const photoUrls = uploadedFiles.map(
+        (response: any) => response.secure_url
+      );
+
+      const cleanedPhotoUrls = photoUrls.map((url) =>
+        url.replace('https://res.cloudinary.com/', '')
+      );
+
+      cleanedPhotoUrls.forEach((url) => {
+        formData.append('photos', url);
+      });
+
+      // console.log('FormData content:');
+      // for (let pair of (formData as any).entries()) {
+      //   console.log(pair[0] + ': ' + pair[1]);
+      // }
+
       const response = await this.hotelService
         .createHotel(formData)
         .toPromise();
       this.isLoading = false;
+
       this.notify.successMessage('Hotel created successfully');
       this.hotelForm.reset();
       this.selectedFiles = [];
       this.fileNames = '';
-    } catch (error) {
+    } catch (error: any) {
       this.isLoading = false;
       this.handleError(error);
     }

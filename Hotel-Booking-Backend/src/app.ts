@@ -9,17 +9,9 @@ import path from 'path';
 
 const app = express();
 
-const uploadsDir = path.join(__dirname, 'uploads');
-
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
-
 app.use(cors());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api', apiRouter);
 
