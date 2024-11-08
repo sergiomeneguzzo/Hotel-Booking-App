@@ -112,6 +112,7 @@
       font-size: 0.95rem;
       cursor: pointer;
       transition: background-color 0.3s;
+      z-index: 1000;
 
       &:hover {
         background-color: #2bb589;
