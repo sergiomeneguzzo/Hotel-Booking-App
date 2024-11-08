@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      picture: ['', [urlValidator(), Validators.required]],
+      picture: ['', [urlValidator()]],
       username: [
         '',
         [Validators.required, Validators.email, customEmailValidator()],
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   register() {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      const {
+      let {
         firstName,
         lastName,
         username,
@@ -67,6 +67,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
         password,
         confirmPassword,
       } = this.registerForm.value;
+
+      if (!picture) {
+        picture =
+          'https://static.vecteezy.com/ti/vettori-gratis/p1/2318271-icona-profilo-utente-vettoriale.jpg';
+      }
+
       console.log('Credenziali', this.registerForm.value);
       this.authSrv
         .register(
