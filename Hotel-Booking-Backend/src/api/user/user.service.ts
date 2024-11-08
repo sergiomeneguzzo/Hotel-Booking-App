@@ -45,7 +45,6 @@ export class UserService {
     newPassword: string,
     confirmPassword: string,
   ) {
-    //TODO: aggiungere il confronto con i valori nel database
     if (newPassword !== confirmPassword) {
       throw new PasswordMismatchError();
     }
