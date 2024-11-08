@@ -50,6 +50,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { HomesComponent } from './pages/homes/homes.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 registerLocaleData(localeIt);
 @NgModule({
@@ -70,6 +71,7 @@ registerLocaleData(localeIt);
     LoaderComponent,
     HomesComponent,
     ConfirmDialogComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
