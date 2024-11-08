@@ -39,6 +39,10 @@ export class HomesComponent {
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
+
+    if (this.showFilters) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   ngOnInit(): void {
