@@ -40,6 +40,10 @@ export class HotelListComponent implements OnInit {
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
+
+    if (this.showFilters) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   ngOnInit(): void {

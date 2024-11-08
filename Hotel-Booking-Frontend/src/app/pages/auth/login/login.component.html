@@ -38,7 +38,9 @@
                 formControlName="username"
                 placeholder="Email"
               />
-              <mat-icon class="input-icon">mail_outline</mat-icon>
+              <button type="button" disabled class="input-icon">
+                <mat-icon>mail_outline</mat-icon>
+              </button>
             </div>
           </div>
 
@@ -51,11 +53,7 @@
                 formControlName="password"
                 placeholder="Password"
               />
-              <button
-                type="button"
-                class="input-icon eye"
-                (click)="hide = !hide"
-              >
+              <button type="button" class="input-icon" (click)="hide = !hide">
                 <mat-icon>{{
                   hide ? "visibility_off" : "visibility"
                 }}</mat-icon>

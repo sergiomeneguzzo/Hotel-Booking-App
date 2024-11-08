@@ -121,6 +121,9 @@
   @media (max-width: 768px) {
     .input-container {
       input {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         padding-right: 40px;
       }
 
