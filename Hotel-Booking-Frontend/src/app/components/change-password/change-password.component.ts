@@ -13,6 +13,7 @@ import { NotificationService } from '../../services/notification.service';
 export class ChangePasswordComponent {
   changePasswordForm: FormGroup;
   hidePassword = true;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -53,15 +54,18 @@ export class ChangePasswordComponent {
       this.changePasswordForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
     const { newPassword, confirmPassword } = this.changePasswordForm.value;
     console.log('newPassword', newPassword, 'confirmPassword', confirmPassword);
     this.authService.updatePassword(newPassword, confirmPassword).subscribe(
       (response) => {
+        this.isLoading = false;
         this.notify.successMessage('Password updated successfully');
         console.log('Password updated successfully');
         this.dialogRef.close(true);
       },
       (error) => {
+        this.isLoading = false;
         this.notify.errorMessage('Password can not be the same as the old one');
         console.error('Password update failed', error);
       }

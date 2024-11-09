@@ -1,10 +1,6 @@
 @if(isLoading) {
 <app-loader></app-loader>
 }
-<!-- @if (!isLoading) {
-<div *ngIf="filteredHotels.length === 0">
-  <p>Hotel non trovati!</p>
-  </div> -->
 
 <div>
   <button mat-fab (click)="toggleFilters()" class="filter-button">
@@ -58,6 +54,10 @@
         <span class="material-icons">clear_all</span> Clear Filters
       </button>
     </div>
+  </div>
+  } @if (!isLoading) {
+  <div *ngIf="filteredHotels.length === 0">
+    <p class="not-found">Hotel not found</p>
   </div>
   }
 
