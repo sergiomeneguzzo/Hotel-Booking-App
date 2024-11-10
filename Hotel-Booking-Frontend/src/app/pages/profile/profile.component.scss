@@ -1,6 +1,7 @@
 @import "../../../styles.scss";
 
 .profile-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +14,7 @@
   background-color: #fff;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   .profile-header {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,6 +26,20 @@
       border-radius: 50%;
       border: 2px solid #35a8e0;
       object-fit: cover;
+    }
+
+    .edit-icon-btn {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $text-color;
+      border-radius: 30px;
+      &:hover {
+        color: $light-gray;
+      }
     }
 
     .profile-name {

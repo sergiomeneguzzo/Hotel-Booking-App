@@ -69,3 +69,24 @@ export const list = async (req: Request, res: Response, next: NextFunction) => {
 
   res.json(list);
 };
+
+export const updateProfilePicture = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const user = req.user! as User;
+    const { url } = req.body;
+
+    if (!url) {
+      return res.status(400).send('Profile picture URL is required');
+    }
+
+    const updatedUser = await userService.updateProfilePicture(user.id!, url);
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+};

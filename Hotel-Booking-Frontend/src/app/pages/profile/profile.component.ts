@@ -3,6 +3,8 @@ import { User } from '../../interfaces/user.entity';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../../components/change-password/change-password.component';
+import { EditPictureComponent } from '../../components/edit-picture/edit-picture.component';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +15,11 @@ export class ProfileComponent {
   user: User | null = null;
   isLoading = false;
 
-  constructor(private authService: AuthService, public dialog: MatDialog) {}
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private notify: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -30,6 +36,23 @@ export class ProfileComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+      }
+    });
+  }
+
+  openEditPictureDialog(): void {
+    const dialogRef = this.dialog.open(EditPictureComponent, {
+      width: '400px',
+      data: { currentPicture: this.user?.picture },
+    });
+
+    dialogRef.afterClosed().subscribe((newPictureUrl) => {
+      if (newPictureUrl) {
+        console.log(newPictureUrl);
+        this.authService.updateUserPicture(newPictureUrl).subscribe(() => {
+          this.user!.picture = newPictureUrl;
+          this.notify.successMessage('Profile picture updated successfully');
+        });
       }
     });
   }

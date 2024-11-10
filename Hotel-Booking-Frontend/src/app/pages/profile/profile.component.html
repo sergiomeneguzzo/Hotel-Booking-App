@@ -9,6 +9,9 @@
       alt="Profile Picture"
       class="profile-image"
     />
+    <button class="edit-icon-btn" (click)="openEditPictureDialog()">
+      <mat-icon>edit</mat-icon>
+    </button>
     <h2 class="profile-name">{{ user?.fullName }}</h2>
   </div>
   <div class="profile-details">

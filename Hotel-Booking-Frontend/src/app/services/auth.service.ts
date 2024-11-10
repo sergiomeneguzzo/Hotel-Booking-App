@@ -85,4 +85,10 @@ export class AuthService {
   confirmEmail(token: string): Observable<any> {
     return this.http.post(`${APIURL}/api/users/email-confirmation`, { token });
   }
+
+  updateUserPicture(url: string): Observable<any> {
+    return this.http.patch(`${APIURL}/api/users/update-profile-picture`, {
+      url,
+    });
+  }
 }
