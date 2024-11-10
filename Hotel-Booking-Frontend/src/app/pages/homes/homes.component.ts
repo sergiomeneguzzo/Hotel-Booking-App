@@ -65,10 +65,16 @@ export class HomesComponent {
   filterHotels() {
     const { searchQuery, maxGuests, services, priceRange } =
       this.filterForm.value;
+
     this.filteredHotels = this.hotels.filter((hotel) => {
-      const matchesSearch = hotel.name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      const lowerCaseSearchQuery = searchQuery?.toLowerCase() || '';
+
+      const matchesSearch =
+        !lowerCaseSearchQuery ||
+        hotel.name.toLowerCase().includes(lowerCaseSearchQuery) ||
+        !lowerCaseSearchQuery ||
+        hotel.location.toLowerCase().includes(lowerCaseSearchQuery);
+
       const matchesGuests = maxGuests ? hotel.maxGuests >= maxGuests : true;
       const matchesPrice =
         hotel.pricePerNight >= priceRange.min &&

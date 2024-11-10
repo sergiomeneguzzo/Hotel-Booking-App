@@ -7,7 +7,7 @@ export interface Hotel {
   description: string;
   location: string;
   maxGuests: number;
-  amenities: (string | Amenity)[];
+  amenities: Amenity[];
   photos: string[];
   pricePerNight: number;
   hotelTypeId: HotelType;

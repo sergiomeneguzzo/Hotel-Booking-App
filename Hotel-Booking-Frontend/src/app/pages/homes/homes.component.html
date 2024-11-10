@@ -55,6 +55,10 @@
       </button>
     </div>
   </div>
+  } @if (!isLoading) {
+  <div *ngIf="filteredHotels.length === 0">
+    <p class="not-found">Home not found</p>
+  </div>
   }
 
   <div class="hotel-list">

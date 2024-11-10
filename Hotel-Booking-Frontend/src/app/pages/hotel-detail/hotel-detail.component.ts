@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Hotel } from '../../interfaces/hotel.entity';
 import { HotelService } from '../../services/hotel.service';
 import { Amenity } from '../../interfaces/amenities.entity';
@@ -22,6 +22,7 @@ export class HotelDetailComponent implements OnInit {
   isDatepickerDisabled: boolean = false;
   bookingForm: FormGroup;
   hotelId: string | null = null;
+  minEndDate: Date | null = null;
 
   isLoading = false;
 
@@ -32,7 +33,8 @@ export class HotelDetailComponent implements OnInit {
     private http: HttpClient,
     private bookingService: BookingService,
     private notify: NotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.bookingForm = this.fb.group({
       startDate: [null, Validators.required],
@@ -52,23 +54,21 @@ export class HotelDetailComponent implements OnInit {
       });
     }
 
-    this.bookingForm.get('startDate')?.valueChanges.subscribe(() => {
-      this.onStartDateChange();
+    //To set minEndDate to the next day of the selected startDate
+    this.bookingForm.get('startDate')?.valueChanges.subscribe((startDate) => {
+      if (startDate) {
+        this.minEndDate = new Date(startDate);
+        this.minEndDate.setDate(this.minEndDate.getDate() + 1);
+        this.bookingForm.get('endDate')?.setValue(null);
+        this.bookingForm
+          .get('endDate')
+          ?.setValidators([
+            Validators.required,
+            Validators.min(this.minEndDate.getTime()),
+          ]);
+        this.bookingForm.get('endDate')?.updateValueAndValidity();
+      }
     });
-
-    this.bookingForm.valueChanges.subscribe(() => {});
-  }
-
-  isAmenity(amenity: string | Amenity): amenity is Amenity {
-    return (amenity as Amenity)._id !== undefined;
-  }
-
-  onStartDateChange() {
-    const startDate = this.bookingForm.get('startDate')?.value;
-    const endDate = this.bookingForm.get('endDate')?.value;
-    if (endDate && startDate && new Date(endDate) < new Date(startDate)) {
-      this.bookingForm.get('endDate')?.reset();
-    }
   }
 
   checkAvailability() {
@@ -110,10 +110,9 @@ export class HotelDetailComponent implements OnInit {
         (unavailableDates) => {
           this.isLoading = false;
           if (!unavailableDates || !Array.isArray(unavailableDates)) {
-            return false; // Return false if unavailableDates is not in the correct format
+            return false;
           }
 
-          // Check if the given date falls within any of the unavailable date ranges
           const isUnavailable = unavailableDates.some((date) => {
             const currentDate = new Date(d!);
             return (
@@ -135,16 +134,11 @@ export class HotelDetailComponent implements OnInit {
     };
   }
 
-  allowAllDates(date: Date | null): boolean {
-    return true;
-  }
-
   checkIfDateIsUnavailable(date: Date | null): boolean {
     if (!date) {
       return false;
     }
 
-    // Check if the date falls within any of the unavailable date ranges
     return this.unavailableDates.some((unavailableDate) => {
       const currentDate = new Date(date);
       const start = new Date(unavailableDate.start);
@@ -170,6 +164,8 @@ export class HotelDetailComponent implements OnInit {
           this.isLoading = false;
           this.notify.successMessage('Booking confirmed!');
           this.bookingForm.reset();
+
+          this.router.navigate(['/bookings']);
         },
         (error) => {
           this.isLoading = false;
