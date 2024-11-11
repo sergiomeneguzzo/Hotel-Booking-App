@@ -9,7 +9,7 @@ export const createBooking = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { hotelId, checkInDate, checkOutDate, guests } = req.body;
   const userId = req.user?.id;
 
@@ -63,7 +63,7 @@ export const getBookingById = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { bookingId } = req.params;
 
   try {
@@ -87,7 +87,7 @@ export const updateBooking = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { bookingId } = req.params;
   const updateData: Partial<IBooking> = req.body;
 
@@ -119,7 +119,7 @@ export const deleteBooking = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { bookingId } = req.params;
 
   try {
@@ -146,7 +146,7 @@ export const getBookingsByUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const userId = req.user?.id;
 
   if (!userId) {
@@ -172,7 +172,7 @@ export const getAllBookings = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   try {
     const bookings = await BookingService.getAllBookings();
     return res.status(200).json(bookings);
@@ -190,7 +190,7 @@ export const cancelBooking = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { bookingId } = req.params;
 
   try {
@@ -218,7 +218,7 @@ export const getUnavailableDates = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<Response> => {
+): Promise<any> => {
   const { hotelId } = req.params;
 
   try {
