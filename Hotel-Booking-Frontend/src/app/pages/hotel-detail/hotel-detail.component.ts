@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Hotel } from '../../interfaces/hotel.entity';
 import { HotelService } from '../../services/hotel.service';
@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { BookingService } from '../../services/booking.service';
 import { NotificationService } from '../../services/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-hotel-detail',
@@ -18,19 +20,53 @@ export class HotelDetailComponent implements OnInit {
   baseUrl: string = 'https://res.cloudinary.com';
   hotel: Hotel | undefined;
   today: Date = new Date();
-  unavailableDates: { start: Date; end: Date }[] = [];
   isDatepickerDisabled: boolean = false;
   bookingForm: FormGroup;
   hotelId: string | null = null;
   minEndDate: Date | null = null;
 
+  route = inject(ActivatedRoute);
+  unavailableDates$ = this.route.paramMap.pipe(
+    map((params) => params.get('id')),
+    startWith(null),
+    switchMap((id) => {
+      if (!id) {
+        return of([]);
+      }
+      return this.bookingService.getUnavailableDates(id!);
+    }),
+    tap((_) => console.log('test'))
+  );
+
+  checkUnavailable$ = this.unavailableDates$.pipe(
+    map((unavailableDates) => {
+      return (d: Date | null) => {
+        if (!d) {
+          return false;
+        }
+
+        if (!unavailableDates || !Array.isArray(unavailableDates)) {
+          return true;
+        }
+
+        const isUnavailable = unavailableDates.some((date) => {
+          const currentDate = new Date(d!);
+          return (
+            currentDate >= new Date(date.start) &&
+            currentDate <= new Date(date.end)
+          );
+        });
+
+        console.log('UNAVAILABLE' + isUnavailable);
+        return !isUnavailable;
+      };
+    })
+  );
+
   isLoading = false;
 
   constructor(
-    private route: ActivatedRoute,
     private hotelService: HotelService,
-    private datePipe: DatePipe,
-    private http: HttpClient,
     private bookingService: BookingService,
     private notify: NotificationService,
     private fb: FormBuilder,
@@ -44,7 +80,7 @@ export class HotelDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.isLoading = false;
     this.hotelId = this.route.snapshot.paramMap.get('id');
     if (this.hotelId) {
       this.hotelService.getHotelById(this.hotelId).subscribe((hotel) => {
@@ -54,7 +90,6 @@ export class HotelDetailComponent implements OnInit {
       });
     }
 
-    //To set minEndDate to the next day of the selected startDate
     this.bookingForm.get('startDate')?.valueChanges.subscribe((startDate) => {
       if (startDate) {
         this.minEndDate = new Date(startDate);
@@ -77,12 +112,7 @@ export class HotelDetailComponent implements OnInit {
     if (hotelId) {
       this.bookingService.getUnavailableDates(hotelId).subscribe(
         (unavailableDates) => {
-          this.unavailableDates = unavailableDates;
-          this.checkIfDateIsUnavailable(
-            this.bookingForm.get('startDate')?.value
-          );
-          this.checkIfDateIsUnavailable(this.bookingForm.get('endDate')?.value);
-          console.log('Unavailable dates:', this.unavailableDates);
+          console.log('Unavailable dates:', unavailableDates);
           this.isLoading = false;
         },
         (error) => {
@@ -93,59 +123,29 @@ export class HotelDetailComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.checkIfDateIsUnavailable = (d: Date | null): boolean => {
+  checkIfDateIsUnavailable(
+    unavailableDates: { start: Date; end: Date }[] | null
+  ) {
+    return (d: Date | null) => {
       if (!d) {
-        return true;
-      }
-      console.log('d:', d);
-      this.hotelId = this.route.snapshot.paramMap.get('id');
-
-      if (!this.hotelId) {
-        console.warn('Hotel ID is missing');
         return false;
       }
 
-      this.bookingService.getUnavailableDates(this.hotelId).subscribe(
-        (unavailableDates) => {
-          this.isLoading = false;
-          if (!unavailableDates || !Array.isArray(unavailableDates)) {
-            return false;
-          }
+      if (!unavailableDates || !Array.isArray(unavailableDates)) {
+        return true;
+      }
 
-          const isUnavailable = unavailableDates.some((date) => {
-            const currentDate = new Date(d!);
-            return (
-              currentDate >= new Date(date.start) &&
-              currentDate <= new Date(date.end)
-            );
-          });
+      const isUnavailable = unavailableDates.some((date) => {
+        const currentDate = new Date(d!);
+        return (
+          currentDate >= new Date(date.start) &&
+          currentDate <= new Date(date.end)
+        );
+      });
 
-          console.log('UNAVAILABLE' + isUnavailable);
-          return isUnavailable;
-        },
-        (error) => {
-          console.error('Error fetching unavailable dates:', error);
-          return false;
-        }
-      );
-
-      return true;
+      console.log('UNAVAILABLE' + isUnavailable);
+      return !isUnavailable;
     };
-  }
-
-  checkIfDateIsUnavailable(date: Date | null): boolean {
-    if (!date) {
-      return false;
-    }
-
-    return this.unavailableDates.some((unavailableDate) => {
-      const currentDate = new Date(date);
-      const start = new Date(unavailableDate.start);
-      const end = new Date(unavailableDate.end);
-
-      return currentDate >= start && currentDate <= end;
-    });
   }
 
   bookHotel() {

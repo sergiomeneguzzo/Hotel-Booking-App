@@ -35,7 +35,7 @@
             [matDatepicker]="pickerStart"
             formControlName="startDate"
             [min]="today"
-            [matDatepickerFilter]="checkIfDateIsUnavailable"
+            [matDatepickerFilter]="(checkUnavailable$ | async)!"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -51,8 +51,7 @@
             [matDatepicker]="pickerEnd"
             formControlName="endDate"
             [min]="minEndDate"
-            (dateChange)="checkAvailability()"
-            [matDatepickerFilter]="checkIfDateIsUnavailable"
+            [matDatepickerFilter]="(checkUnavailable$ | async)!"
           />
           <mat-datepicker-toggle
             matSuffix
