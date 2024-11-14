@@ -1,3 +1,6 @@
+@if(isLoading) {
+<app-loader></app-loader>
+}
 <app-nav-bar
   [user]="currentUser$ | async"
   *ngIf="currentUser$ | async"

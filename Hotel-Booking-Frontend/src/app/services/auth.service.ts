@@ -11,8 +11,10 @@ import { APIURL } from '../enviroments/apiurl';
 })
 export class AuthService {
   private _currentUser$ = new BehaviorSubject<User | null>(null);
-
   currentUser$ = this._currentUser$.asObservable();
+
+  private _loading$ = new BehaviorSubject<boolean>(false);
+  loading$ = this._loading$.asObservable();
 
   constructor(
     private jwtSrv: JwtService,
@@ -64,9 +66,10 @@ export class AuthService {
   }
 
   public fetchUser() {
-    console.log('api log ', `${APIURL}/api/users/me`);
+    this._loading$.next(true);
     this.http.get<User>(`${APIURL}/api/users/me`).subscribe((user) => {
       this._currentUser$.next(user);
+      this._loading$.next(false);
       console.log('user log: ', user);
     });
   }
