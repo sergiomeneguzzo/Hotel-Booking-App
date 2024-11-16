@@ -27,7 +27,9 @@
     <mat-icon>menu</mat-icon>
   </div>
   <div class="side-menu" [class.active]="mobileMenuActive">
-    <button class="close-btn" (click)="toggleMobileMenu()">✕</button>
+    <button class="close-btn" (click)="toggleMobileMenu()">
+      <mat-icon class="close-menu">close</mat-icon>
+    </button>
     <ul>
       <li (click)="toggleMobileMenu()" routerLink="/hotels">Explore</li>
       <li (click)="toggleMobileMenu()" routerLink="/homes">Entire Homes</li>
