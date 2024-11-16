@@ -67,10 +67,16 @@ export class AuthService {
 
   public fetchUser() {
     this._loading$.next(true);
-    this.http.get<User>(`${APIURL}/api/users/me`).subscribe((user) => {
-      this._currentUser$.next(user);
-      this._loading$.next(false);
-      console.log('user log: ', user);
+    this.http.get<User>(`${APIURL}/api/users/me`).subscribe({
+      next: (user) => {
+        this._currentUser$.next(user);
+        this._loading$.next(false);
+        console.log('user log: ', user);
+      },
+      error: (err) => {
+        this._loading$.next(false);
+        console.error('Error fetching user:', err);
+      },
     });
   }
 
