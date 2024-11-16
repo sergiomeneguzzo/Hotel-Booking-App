@@ -20,6 +20,8 @@ export class NavBarComponent {
   profileMenuActive: boolean = false;
   navLinksActive = false;
   isMobile: boolean = false;
+  mobileMenuActive: boolean = false;
+  profileDropdownActive: boolean = false;
 
   constructor(private router: Router, private eRef: ElementRef) {
     this.checkIfMobile();
@@ -29,8 +31,14 @@ export class NavBarComponent {
     this.logout.emit();
   }
 
-  toggleProfileMenu() {
-    this.profileMenuActive = !this.profileMenuActive;
+  toggleMobileMenu(): void {
+    this.mobileMenuActive = !this.mobileMenuActive;
+  }
+
+  toggleProfileDropdown(): void {
+    if (!this.isMobile) {
+      this.profileDropdownActive = !this.profileDropdownActive;
+    }
   }
 
   navigateToProfile() {
@@ -48,9 +56,9 @@ export class NavBarComponent {
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
-    // Check if the click is outside of the profile menu
     if (!this.eRef.nativeElement.contains(event.target)) {
-      this.profileMenuActive = false;
+      this.mobileMenuActive = false;
+      this.profileDropdownActive = false;
     }
   }
 }

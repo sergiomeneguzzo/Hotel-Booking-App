@@ -6,22 +6,37 @@
   <ul class="nav-links">
     <li routerLink="/hotels">Explore</li>
     <li routerLink="/homes">Entire Homes</li>
-    <li routerLink="bookings">My Reservations</li>
+    <li routerLink="/bookings">My Reservations</li>
     <li routerLink="/new-add">New Listing</li>
   </ul>
-  <div class="profile-menu" (click)="toggleProfileMenu()">
-    <img [src]="user?.picture" alt="Profile" class="profile-pic" />
-    <div class="dropdown" [class.active]="profileMenuActive">
-      @if (isMobile) {
-      <ul class="nav-links-mobile">
-        <li routerLink="/hotels">Explore</li>
-        <li routerLink="/homes">Entire Homes</li>
-        <li routerLink="/bookings">Reservations</li>
-        <li routerLink="/new-add">New Listing</li>
-      </ul>
-      }
-      <p (click)="navigateToProfile()">Profile</p>
-      <p (click)="onLogout()" class="log-out-btn">Logout</p>
-    </div>
+  @if (!isMobile) {
+  <div class="profile-menu">
+    <img
+      [src]="user?.picture"
+      (click)="toggleProfileDropdown()"
+      alt="Profile"
+      class="profile-pic"
+    />
+    <ul class="dropdown-menu" [class.active]="profileDropdownActive">
+      <li (click)="navigateToProfile()">Profile</li>
+      <li (click)="onLogout()" class="logout">Logout</li>
+    </ul>
+  </div>
+  }
+  <div class="menu-toggle" (click)="toggleMobileMenu()">
+    <mat-icon>menu</mat-icon>
+  </div>
+  <div class="side-menu" [class.active]="mobileMenuActive">
+    <button class="close-btn" (click)="toggleMobileMenu()">✕</button>
+    <ul>
+      <li (click)="toggleMobileMenu()" routerLink="/hotels">Explore</li>
+      <li (click)="toggleMobileMenu()" routerLink="/homes">Entire Homes</li>
+      <li (click)="toggleMobileMenu()" routerLink="/bookings">Reservations</li>
+      <li (click)="toggleMobileMenu()" routerLink="/new-add">New Listing</li>
+      <li (click)="toggleMobileMenu()" (click)="navigateToProfile()">
+        Profile
+      </li>
+    </ul>
+    <p (click)="onLogout()" class="log-out-btn">Logout</p>
   </div>
 </nav>
