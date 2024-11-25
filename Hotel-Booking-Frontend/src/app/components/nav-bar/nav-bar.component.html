@@ -28,7 +28,7 @@
   </div>
   <div class="side-menu" [class.active]="mobileMenuActive">
     <button class="close-btn" (click)="toggleMobileMenu()">
-      <mat-icon class="close-menu">close</mat-icon>
+      <mat-icon>close</mat-icon>
     </button>
     <ul>
       <li (click)="toggleMobileMenu()" routerLink="/hotels">Explore</li>
@@ -39,6 +39,8 @@
         Profile
       </li>
     </ul>
-    <p (click)="onLogout()" class="log-out-btn">Logout</p>
+    <p (click)="onLogout()" class="log-out-btn">
+      <mat-icon>logout</mat-icon> Logout
+    </p>
   </div>
 </nav>
