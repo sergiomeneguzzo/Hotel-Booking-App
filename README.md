@@ -1,7 +1,6 @@
 # Hotels Booking Web App
 
-This project is a web application for booking hotels and houses. The frontend is built using **Angular 18**, while the backend is developed with **Node.js** and **TypeScript**. It integrates **Passport Authentication** and email confirmation. The application is connected to **MongoDB Atlas** for storing user data and booking details. In the future, it will include a payment simulation feature using **FifthPocket**, another one of my projects for home banking.
-
+This project is a web application for booking hotels and houses. The frontend is built using **Angular 18**, while the backend is developed with **Node.js** and **TypeScript**. It integrates **Passport Authentication** and email confirmation. The application is connected to **MongoDB Atlas** for storing user data and booking details.
 # Project Overview
 
 ## Frontend:
@@ -23,6 +22,9 @@ This project is a web application for booking hotels and houses. The frontend is
 ## Email Confirmation:
 - **Email Confirmation**: After registration, users are required to confirm their email address to activate their account.
 
+## Logs:
+- **Log Table:** The backend API logs actions and events that are then populated into a dedicated table. This log can be useful for tracking errors, user actions, and overall system activity.
+
 ## Future Feature:
 - **Payment Simulation**: A payment simulation feature will be implemented using FifthPocket for home banking functionality.
 
@@ -32,7 +34,6 @@ This project is a web application for booking hotels and houses. The frontend is
 - **Login/Registration:** Users can create an account or log in with their credentials.
 - **Email Confirmation:** Users must confirm their email after registering to activate their account.
 - **Booking Management:** Users can view and manage their hotel/house bookings.
-- **Payment Simulation (Future):** The application will soon feature a payment simulation using FifthPocket.
 
 ## Project Structure
 
